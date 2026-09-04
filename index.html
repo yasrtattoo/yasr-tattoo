@@ -347,13 +347,40 @@
     <div class="contact-grid">
       <div class="reveal">
         <h2 style="margin-bottom:24px;" data-i18n-html="contact_title">Randevu &amp;<br>İletişim</h2>
-      <form action="https://formspree.io/f/xjyvreqj" method="POST">
-    <div class="field"><label data-i18n="form_name">Ad Soyad</label><input type="text" required></div>
-    <div class="field"><label data-i18n="form_email">E-posta</label><input type="email" required></div>
-    <div class="field"><label data-i18n="form_msg">Mesajınız</label><textarea></textarea></div>
-    <button class="btn solid" type="submit" data-i18n="form_btn">Gönder</button>
-</form>
+      <!-- İletişim Formu Güncel Hali -->
+<form action="https://formspree.io/f/xjyvreqj" method="POST">
+  <div class="contact-grid">
+    <div>
+      <div class="field">
+        <label for="name">Adınız</label>
+        <input type="text" id="name" name="name" required>
       </div>
+      <div class="field">
+        <label for="email">E-posta Adresiniz</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="field">
+        <label for="phone">Telefon Numarası</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+    </div>
+    <div>
+      <div class="field">
+        <label for="service">İstediğiniz İşlem</label>
+        <select id="service" name="service">
+          <option value="dovme">Yeni Dövme</option>
+          <option value="kapatma">Dövme Kapatma / Yenileme</option>
+          <option value="egitim">Dövme Eğitimi</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Proje Detayları</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="btn solid" style="width:100%; margin-top:12px;">Gönder</button>
+    </div>
+  </div>
+</form>
       <div class="reveal">
         <div class="info-block">
           <div><span data-i18n="info_l1">Stüdyo</span><span>YASR Tattoo, North Carolina</span></div>
