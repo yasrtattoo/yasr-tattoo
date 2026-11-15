@@ -106,6 +106,46 @@
     .logo-yasr{font-size:44px;} .logo-sub{font-size:9px;letter-spacing:.55em;padding-left:.55em;margin-top:4px;}
   }
   header nav.menu{margin-left:auto;}
+  /* Dil secici: tek pill buton + acilir cam menu */
+  .lang-switch{position:relative;display:flex;align-items:center;}
+  .lang-current{display:inline-flex;align-items:center;gap:7px;height:37px;padding:0 14px;border-radius:50px;cursor:pointer;
+    background:rgba(10,5,16,.55);color:#fff;border:1px solid rgba(244,238,247,.35);
+    font:600 12px/1 'Work Sans',sans-serif;letter-spacing:.12em;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:border-color .25s, box-shadow .25s, background .25s;}
+  .lang-current:hover,.lang-switch.open .lang-current{border-color:#b366f0;box-shadow:0 0 0 3px rgba(179,102,240,.15);background:rgba(20,10,32,.75);}
+  .lang-globe{opacity:.85;}
+  .lang-chev{opacity:.7;transition:transform .25s;}
+  .lang-switch.open .lang-chev{transform:rotate(180deg);}
+  .lang-list{position:absolute;top:calc(100% + 10px);right:0;min-width:190px;padding:6px;border-radius:16px;z-index:200;
+    background:rgba(14,8,24,.92);border:1px solid rgba(181,101,240,.35);
+    backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);
+    box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.03) inset;
+    opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top right;
+    transition:opacity .2s ease, transform .2s ease, visibility 0s linear .2s;}
+  .lang-switch.open .lang-list{opacity:1;visibility:visible;transform:none;transition:opacity .2s ease, transform .2s ease, visibility 0s;}
+  .lang-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:none;cursor:pointer;
+    color:rgba(244,238,247,.78);font:500 14px/1 'Work Sans',sans-serif;text-align:left;transition:background .15s,color .15s;}
+  .lang-list button:hover{background:rgba(179,102,240,.12);color:#fff;}
+  .lang-code{display:inline-flex;align-items:center;justify-content:center;width:30px;height:22px;border-radius:6px;
+    font:700 10.5px/1 'Work Sans',sans-serif;letter-spacing:.08em;color:#e9d7ff;background:rgba(179,102,240,.14);border:1px solid rgba(179,102,240,.3);}
+  .lang-name{flex:1;}
+  .lang-check{color:#b366f0;opacity:0;transition:opacity .15s;}
+  .lang-list button.active{color:#fff;background:rgba(179,102,240,.16);}
+  .lang-list button.active .lang-code{background:#b366f0;border-color:#b366f0;color:#fff;}
+  .lang-list button.active .lang-check{opacity:1;}
+  .lang-switch button:focus{outline:none;} .lang-switch button:focus-visible{outline:2px solid #b366f0;outline-offset:2px;}
+  @media(max-width:860px){
+    nav.menu{gap:10px;}
+    .lang-switch{margin-left:8px;}
+    .lang-current{height:37px;padding:0 11px;gap:6px;}
+    .lang-globe{display:none;}
+    .lang-list{min-width:170px;}
+  }
+  /* Mobil: kisa ekranlarda acilis yazilari menunun altina girmesin */
+  @media(max-width:640px){ .hero h1{font-size:clamp(30px, min(12.5vw, 6.4vh), 48px) !important;} }
+  @media(max-width:640px) and (max-height:760px){ .hero-sub{font-size:14px;line-height:1.45;margin-top:16px;} .hero-tagline{margin-top:12px;} .hero-actions{margin-top:20px;} .hero-inner{padding-bottom:32px !important;} }
+  @media(max-width:345px){ .logo-yasr{font-size:32px !important;} .logo-sub{font-size:6.5px !important;letter-spacing:.38em !important;} nav.menu a.nav-cta{padding-left:11px !important;padding-right:11px !important;} .lang-current{padding:0 9px !important;} }
+  @media(max-width:380px){ .logo-yasr{font-size:38px !important;} .logo-sub{font-size:7.5px !important;letter-spacing:.42em !important;} }
   header{min-height:86px;box-sizing:border-box;}
   @media(max-width:640px){header{min-height:69px;}}
   nav.menu{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:34px;align-items:center;}
@@ -131,7 +171,6 @@
     text-shadow:0 0 8px #fff,0 0 18px rgba(255,255,255,.9);
     background:#0a0510;color:#fff;
   }
-  .lang-switch{background:none;border:1px solid var(--off);color:var(--off);padding:8px 12px;font-size:12px;letter-spacing:.05em;cursor:pointer;}
   @media(max-width:860px){
     nav.menu{position:static;transform:none;gap:0;}
     nav.menu a:not(.nav-cta){display:none;}
@@ -382,6 +421,7 @@
     <a href="#sanatci" data-i18n="nav_sanatci">Artist</a>
     <a href="#galeri" data-i18n="nav_galeri">Tattoos</a>
     <a href="#iletisim" class="nav-cta" data-i18n="nav_cta">Book Now</a>
+    <div class="lang-switch" translate="no"><button type="button" class="lang-current" aria-haspopup="menu" aria-expanded="false" aria-label="Language"><svg class="lang-globe" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M12 3c2.6 2.8 3.9 5.8 3.9 9s-1.3 6.2-3.9 9M12 3C9.4 5.8 8.1 8.8 8.1 12s1.3 6.2 3.9 9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lang-current-code">EN</span><svg class="lang-chev" viewBox="0 0 10 6" width="9" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><div class="lang-list" role="menu" aria-label="Language"><button type="button" role="menuitemradio" data-lang="en" lang="en"><span class="lang-code">EN</span><span class="lang-name">English</span><svg class="lang-check" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" role="menuitemradio" data-lang="es" lang="es"><span class="lang-code">ES</span><span class="lang-name">Español</span><svg class="lang-check" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" role="menuitemradio" data-lang="de" lang="de"><span class="lang-code">DE</span><span class="lang-name">Deutsch</span><svg class="lang-check" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
   </nav>
 </header>
 
@@ -397,7 +437,7 @@
     <video id="heroVideo" class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="video1-poster.jpg" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:none;filter:contrast(1.08) saturate(1.05);pointer-events:none;"><source src="video1.mp4" type="video/mp4"></video>
   </div>
 <div class="hero-inner">
-    <h1 data-i18n-html="hero_h1">No copies.<br>No generic designs.<br>No shortcuts.</h1>
+    <h1 data-i18n="hero_h1">No copies.<br>No generic designs.<br>No shortcuts.</h1>
     <p class="hero-sub" data-i18n="hero_sub">With over 13 years of experience, YASR creates custom tattoos built around individuality, detail, and impact. From complex cover-ups to large-scale original pieces, every tattoo is designed to be unmistakably yours.</p>
     <p class="hero-tagline" data-i18n="hero_tagline">NOT JUST A TATTOO. A SIGNATURE.</p>
     <div class="hero-actions">
@@ -419,10 +459,10 @@
         <p data-i18n="bio3">After building his career in Turkey and continuing his journey across the United States, YASR has developed a style shaped by years of experience, constant evolution, and one simple rule: never stop creating.</p>
         <p class="bio-highlight" data-i18n="bio4">EVERY PROJECT IS PERSONAL. EVERY TATTOO IS CUSTOM. EVERY PIECE CARRIES A SIGNATURE.</p>
         <ul class="credentials">
-          <li><span data-i18n="cred_l1">SPECIALTY</span><b>Custom Tattoos &bull; Cover-Ups &bull; Realism &bull; Color &bull; Black &amp; Grey</b></li>
-          <li><span data-i18n="cred_l2">BASED IN</span><b>North Carolina, USA</b></li>
-          <li><span data-i18n="cred_l3">EXPERIENCE</span><b>13+ Years</b></li>
-          <li><span data-i18n="cred_l4">STYLE</span><b>Bold &bull; Detailed &bull; Custom &bull; Recognizable</b></li>
+          <li><span data-i18n="cred_l1">SPECIALTY</span><b data-i18n="cred_v1">Custom Tattoos &bull; Cover-Ups &bull; Realism &bull; Color &bull; Black &amp; Grey</b></li>
+          <li><span data-i18n="cred_l2">BASED IN</span><b data-i18n="cred_v2">North Carolina, USA</b></li>
+          <li><span data-i18n="cred_l3">EXPERIENCE</span><b data-i18n="cred_v3">13+ Years</b></li>
+          <li><span data-i18n="cred_l4">STYLE</span><b data-i18n="cred_v4">Bold &bull; Detailed &bull; Custom &bull; Recognizable</b></li>
         </ul>
         <div class="signature">&mdash; Yasar Tokyay</div>
       </div>
@@ -432,7 +472,7 @@
 
 <section class="section" id="galeri" style="padding-left:0;padding-right:0;">
   <div class="wrap" style="max-width:none;padding:0 32px;">
-    <h2 data-i18n-html="gallery_title">Tattoos</h2>
+    <h2 data-i18n="gallery_title">Tattoos</h2>
   </div>
     <div class="tattoo-carousel">
     <button class="car-nav car-prev" type="button" aria-label="Previous tattoos">&#10094;</button>
@@ -458,19 +498,19 @@
     <div class="contact-grid">
       <img class="contact-center-logo" src="contact-logo.png" alt="YASR Tattoo emblem">
       <div class="reveal contact-panel">
-        <div class="contact-kicker">CONTACT</div>
-        <h2 style="margin-bottom:0;">Book<br>Appointment</h2>
+        <div class="contact-kicker" data-i18n="contact_kicker">CONTACT</div>
+        <h2 style="margin-bottom:0;" data-i18n="contact_title">Book<br>Appointment</h2>
         <div class="info-stack">
           <div>
-            <div class="label">Studio</div>
+            <div class="label" data-i18n="lbl_studio">Studio</div>
             <div class="value">YASR Tattoo, North Carolina, USA</div>
           </div>
           <div>
-            <div class="label">Working Hours</div>
+            <div class="label" data-i18n="lbl_hours">Working Hours</div>
             <div class="value">11:00 &ndash; 20:00</div>
           </div>
           <div>
-            <div class="label">Email</div>
+            <div class="label" data-i18n="lbl_email">Email</div>
             <div class="value"><a href="mailto:yasr.tatweb@gmail.com" style="color:inherit;">yasr.tatweb@gmail.com</a></div>
           </div>
         </div>
@@ -482,13 +522,14 @@
       <div class="reveal contact-panel">
         <form id="bookingForm" action="https://formspree.io/f/xjyvreqj" method="POST" onsubmit="handleBookingSubmit(event)">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
-          <div class="field"><label for="f-name">Full Name</label><input type="text" id="f-name" name="name" placeholder="Your full name" required></div>
-          <div class="field"><label for="f-phone">Phone</label><input type="tel" id="f-phone" name="phone" placeholder="+1 555 555 5555"></div>
-          <div class="field"><label for="f-email">Email</label><input type="email" id="f-email" name="email" placeholder="you@example.com" required></div>
-          <div class="field"><label for="f-message">Your Tattoo Idea</label><textarea id="f-message" name="message" placeholder="Style, size, body placement, and any references..."></textarea></div>
-          <p class="form-note">Your appointment request will be sent directly to our team.</p>
-          <button class="btn solid full" type="submit" id="bookingSubmitBtn">Send Appointment Request</button>
-          <p class="form-note-photo">Want to include a reference photo? Email it to <a href="mailto:yasr.tatweb@gmail.com">yasr.tatweb@gmail.com</a></p>
+          <div class="field"><label for="f-name" data-i18n="f_name_l">Full Name</label><input type="text" id="f-name" name="name" placeholder="Your full name" data-i18n-ph="f_name_ph" required></div>
+          <div class="field"><label for="f-phone" data-i18n="f_phone_l">Phone</label><input type="tel" id="f-phone" name="phone" placeholder="+1 555 555 5555"></div>
+          <div class="field"><label for="f-email" data-i18n="f_email_l">Email</label><input type="email" id="f-email" name="email" placeholder="you@example.com" required></div>
+          <div class="field"><label for="f-message" data-i18n="f_msg_l">Your Tattoo Idea</label><textarea id="f-message" name="message" placeholder="Style, size, body placement, and any references..." data-i18n-ph="f_msg_ph"></textarea></div>
+          <p class="form-note" data-i18n="form_note">Your appointment request will be sent directly to our team.</p>
+          <input type="hidden" name="language" id="f-language" value="English">
+          <button class="btn solid full" type="submit" id="bookingSubmitBtn" data-i18n="form_btn">Send Appointment Request</button>
+          <p class="form-note-photo" data-i18n="form_photo">Want to include a reference photo? Email it to <a href="mailto:yasr.tatweb@gmail.com">yasr.tatweb@gmail.com</a></p>
           <p id="bookingSuccessMsg" class="form-success"></p>
         </form>
       </div>
@@ -653,7 +694,7 @@
     const form = document.getElementById('bookingForm');
     const btn = document.getElementById('bookingSubmitBtn');
     const successMsg = document.getElementById('bookingSuccessMsg');
-    const originalText = "Send Appointment Request";
+    const originalText = t("form_btn");
 
     // Honeypot check: if this hidden field got filled, it's a bot - silently pretend success
     if(form.querySelector('[name="_gotcha"]').value !== ""){
@@ -664,7 +705,7 @@
     // Too-fast submit check: real humans take at least a couple seconds to fill a form
     const elapsed = Date.now() - formLoadedAt;
     if(elapsed < 2500){
-      successMsg.textContent = "Please take a moment to fill out the form before sending.";
+      successMsg.textContent = t("msg_fast");
       successMsg.style.color = "#f87171";
       successMsg.classList.add('show');
       setTimeout(()=> successMsg.classList.remove('show'), 4000);
@@ -672,7 +713,7 @@
     }
 
     btn.disabled = true;
-    btn.textContent = "Sending...";
+    btn.textContent = t("msg_sending");
     successMsg.classList.remove('show');
 
     fetch(form.action, {
@@ -681,9 +722,9 @@
       headers: { 'Accept': 'application/json' }
     }).then(response => {
       if(response.ok){
-        btn.textContent = "Sent";
+        btn.textContent = t("msg_sent");
         btn.classList.add('is-sent');
-        successMsg.textContent = "Your request has been received. We will get back to you shortly.";
+        successMsg.textContent = t("msg_ok");
         successMsg.style.color = "#4ade80";
         successMsg.classList.add('show');
         form.reset();
@@ -691,8 +732,8 @@
         throw new Error('Form submission failed');
       }
     }).catch(() => {
-      btn.textContent = "Send Appointment Request";
-      successMsg.textContent = "Something went wrong. Please try again or reach out via Instagram.";
+      btn.textContent = t("form_btn");
+      successMsg.textContent = t("msg_err");
       successMsg.style.color = "#f87171";
       successMsg.classList.add('show');
     }).finally(() => {
@@ -835,5 +876,57 @@
   items.forEach(el=>io.observe(el));
 </script>
 
+<script>
+  // Dil secimi: EN / ES / DE. Metinler sabit sozlukten gelir; secim hatirlanir, ilk ziyarette telefon/tarayici diline gore otomatik secilir.
+  const I18N = {"en": {"nav_sanatci": "Artist", "nav_galeri": "Tattoos", "nav_cta": "Book Now", "hero_h1": "No copies.<br>No generic designs.<br>No shortcuts.", "hero_sub": "With over 13 years of experience, YASR creates custom tattoos built around individuality, detail, and impact. From complex cover-ups to large-scale original pieces, every tattoo is designed to be unmistakably yours.", "hero_tagline": "NOT JUST A TATTOO. A SIGNATURE.", "hero_btn2": "View Tattoos", "sanatci_title": "The Artist", "bio1": "YASR is a tattoo artist with over 13 years of experience, known for bold custom work, large-scale compositions, realism, color, and complex cover-ups.", "bio2": "For him, tattooing is not about copying an image onto skin. Every piece is designed around the person, their body, their story, and their energy. His approach combines strong composition, detail, contrast, and originality to create tattoos that are immediately recognizable.", "bio3": "After building his career in Turkey and continuing his journey across the United States, YASR has developed a style shaped by years of experience, constant evolution, and one simple rule: never stop creating.", "bio4": "EVERY PROJECT IS PERSONAL. EVERY TATTOO IS CUSTOM. EVERY PIECE CARRIES A SIGNATURE.", "cred_l1": "SPECIALTY", "cred_l2": "BASED IN", "cred_l3": "EXPERIENCE", "cred_l4": "STYLE", "cred_v1": "Custom Tattoos &bull; Cover-Ups &bull; Realism &bull; Color &bull; Black &amp; Grey", "cred_v2": "North Carolina, USA", "cred_v3": "13+ Years", "cred_v4": "Bold &bull; Detailed &bull; Custom &bull; Recognizable", "gallery_title": "Tattoos", "contact_kicker": "CONTACT", "contact_title": "Book<br>Appointment", "lbl_studio": "Studio", "lbl_hours": "Working Hours", "lbl_email": "Email", "f_name_l": "Full Name", "f_name_ph": "Your full name", "f_phone_l": "Phone", "f_email_l": "Email", "f_msg_l": "Your Tattoo Idea", "f_msg_ph": "Style, size, body placement, and any references...", "form_note": "Your appointment request will be sent directly to our team.", "form_btn": "Send Appointment Request", "form_photo": "Want to include a reference photo? Email it to <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. All rights reserved.", "msg_fast": "Please take a moment to fill out the form before sending.", "msg_sending": "Sending...", "msg_sent": "Sent", "msg_ok": "Your request has been received. We will get back to you shortly.", "msg_err": "Something went wrong. Please try again or reach out via Instagram."}, "es": {"nav_sanatci": "Artista", "nav_galeri": "Tatuajes", "nav_cta": "Reservar", "hero_h1": "Sin copias.<br>Sin diseños genéricos.<br>Sin atajos.", "hero_sub": "Con más de 13 años de experiencia, YASR crea tatuajes personalizados basados en la individualidad, el detalle y el impacto. Desde cover-ups complejos hasta grandes piezas originales, cada tatuaje está diseñado para ser inconfundiblemente tuyo.", "hero_tagline": "NO ES SOLO UN TATUAJE. ES UNA FIRMA.", "hero_btn2": "Ver tatuajes", "sanatci_title": "El artista", "bio1": "YASR es un tatuador con más de 13 años de experiencia, conocido por sus trabajos personalizados y atrevidos, composiciones de gran formato, realismo, color y cover-ups complejos.", "bio2": "Para él, tatuar no es copiar una imagen sobre la piel. Cada pieza se diseña en torno a la persona, su cuerpo, su historia y su energía. Su enfoque combina una composición sólida, detalle, contraste y originalidad para crear tatuajes que se reconocen al instante.", "bio3": "Tras construir su carrera en Turquía y continuar su camino por Estados Unidos, YASR ha desarrollado un estilo forjado por años de experiencia, evolución constante y una regla simple: nunca dejar de crear.", "bio4": "CADA PROYECTO ES PERSONAL. CADA TATUAJE ES ÚNICO. CADA PIEZA LLEVA UNA FIRMA.", "cred_l1": "ESPECIALIDAD", "cred_l2": "UBICACIÓN", "cred_l3": "EXPERIENCIA", "cred_l4": "ESTILO", "cred_v1": "Tatuajes personalizados &bull; Cover-ups &bull; Realismo &bull; Color &bull; Black &amp; Grey", "cred_v2": "Carolina del Norte, EE. UU.", "cred_v3": "Más de 13 años", "cred_v4": "Audaz &bull; Detallado &bull; Personalizado &bull; Reconocible", "gallery_title": "Tatuajes", "contact_kicker": "CONTACTO", "contact_title": "Reserva<br>tu cita", "lbl_studio": "Estudio", "lbl_hours": "Horario", "lbl_email": "Correo", "f_name_l": "Nombre completo", "f_name_ph": "Tu nombre completo", "f_phone_l": "Teléfono", "f_email_l": "Correo electrónico", "f_msg_l": "Tu idea de tatuaje", "f_msg_ph": "Estilo, tamaño, zona del cuerpo y cualquier referencia...", "form_note": "Tu solicitud de cita se enviará directamente a nuestro equipo.", "form_btn": "Enviar solicitud de cita", "form_photo": "¿Quieres incluir una foto de referencia? Envíala a <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. Todos los derechos reservados.", "msg_fast": "Tómate un momento para completar el formulario antes de enviarlo.", "msg_sending": "Enviando...", "msg_sent": "Enviado", "msg_ok": "Hemos recibido tu solicitud. Te responderemos pronto.", "msg_err": "Algo salió mal. Inténtalo de nuevo o escríbenos por Instagram."}, "de": {"nav_sanatci": "Künstler", "nav_galeri": "Tattoos", "nav_cta": "Buchen", "hero_h1": "Keine Kopien.<br>Kein Standard.<br>Kein Pfusch.", "hero_sub": "Mit über 13 Jahren Erfahrung gestaltet YASR individuelle Tattoos, die auf Persönlichkeit, Details und Wirkung setzen. Von komplexen Cover-ups bis zu großflächigen Originalarbeiten – jedes Tattoo wird so gestaltet, dass es unverwechselbar deins ist.", "hero_tagline": "NICHT NUR EIN TATTOO. EINE HANDSCHRIFT.", "hero_btn2": "Tattoos ansehen", "sanatci_title": "Der Künstler", "bio1": "YASR ist ein Tätowierer mit über 13 Jahren Erfahrung, bekannt für ausdrucksstarke individuelle Arbeiten, großflächige Kompositionen, Realismus, Farbe und komplexe Cover-ups.", "bio2": "Für ihn bedeutet Tätowieren nicht, ein Bild auf die Haut zu kopieren. Jedes Motiv wird rund um den Menschen gestaltet – seinen Körper, seine Geschichte, seine Energie. Sein Ansatz verbindet starke Komposition, Details, Kontrast und Originalität zu Tattoos, die man sofort wiedererkennt.", "bio3": "Nachdem er seine Karriere in der Türkei aufgebaut und seinen Weg in den USA fortgesetzt hat, hat YASR einen Stil entwickelt, der von jahrelanger Erfahrung, ständiger Weiterentwicklung und einer einfachen Regel geprägt ist: niemals aufhören zu erschaffen.", "bio4": "JEDES PROJEKT IST PERSÖNLICH. JEDES TATTOO IST EINZIGARTIG. JEDES STÜCK TRÄGT EINE HANDSCHRIFT.", "cred_l1": "SPEZIALGEBIET", "cred_l2": "STANDORT", "cred_l3": "ERFAHRUNG", "cred_l4": "STIL", "cred_v1": "Individuelle Tattoos &bull; Cover-ups &bull; Realismus &bull; Farbe &bull; Black &amp; Grey", "cred_v2": "North Carolina, USA", "cred_v3": "Über 13 Jahre", "cred_v4": "Ausdrucksstark &bull; Detailliert &bull; Individuell &bull; Unverwechselbar", "gallery_title": "Tattoos", "contact_kicker": "KONTAKT", "contact_title": "Termin<br>buchen", "lbl_studio": "Studio", "lbl_hours": "Öffnungszeiten", "lbl_email": "E-Mail", "f_name_l": "Vollständiger Name", "f_name_ph": "Dein vollständiger Name", "f_phone_l": "Telefon", "f_email_l": "E-Mail", "f_msg_l": "Deine Tattoo-Idee", "f_msg_ph": "Stil, Größe, Körperstelle und eventuelle Referenzen...", "form_note": "Deine Terminanfrage wird direkt an unser Team gesendet.", "form_btn": "Terminanfrage senden", "form_photo": "Möchtest du ein Referenzfoto mitschicken? Sende es an <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. Alle Rechte vorbehalten.", "msg_fast": "Bitte nimm dir einen Moment Zeit, das Formular auszufüllen, bevor du es absendest.", "msg_sending": "Wird gesendet...", "msg_sent": "Gesendet", "msg_ok": "Deine Anfrage ist eingegangen. Wir melden uns in Kürze bei dir.", "msg_err": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder schreib uns auf Instagram."}};
+  const LANG_NAMES = {en:'English', es:'Español', de:'Deutsch'};
+  let currentLang = 'en';
+  function t(key){ return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || ''; }
+  function applyLang(lang){
+    if(!I18N[lang]) lang = 'en';
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{ const v = t(el.getAttribute('data-i18n')); if(v) el.innerHTML = v; });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el=>{ const v = t(el.getAttribute('data-i18n-ph')); if(v) el.setAttribute('placeholder', v); });
+    document.querySelectorAll('.lang-list button').forEach(b=>{ const on = b.dataset.lang === lang; b.classList.toggle('active', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
+    const cc = document.querySelector('.lang-current-code'); if(cc) cc.textContent = lang.toUpperCase();
+    const lf = document.getElementById('f-language'); if(lf) lf.value = LANG_NAMES[lang];
+    if(window.fitHero) fitHero();
+  }
+  // Acilis basligi menunun altina girmesin: gerekirse yazi boyutunu kucult (her dil ve ekran icin)
+  window.fitHero = function(){
+    const h1 = document.querySelector('.hero h1'); if(!h1) return;
+    h1.style.removeProperty('font-size');
+    if(window.innerWidth > 860) return; // masaustu tasarimina dokunma
+    const parts = [...document.querySelectorAll('header .logo, header .nav-cta, header .lang-current')].filter(e=>e.offsetParent!==null);
+    const limit = Math.max(0, ...parts.map(e=>e.getBoundingClientRect().bottom)) + 12;
+    const shift = (()=>{ const m = new DOMMatrixReadOnly(getComputedStyle(h1).transform === 'none' ? undefined : getComputedStyle(h1).transform); return m.m42 || 0; })();
+    let fs = parseFloat(getComputedStyle(h1).fontSize), guard = 0;
+    while(h1.getBoundingClientRect().top - shift < limit && fs > 22 && guard++ < 40){ fs -= 2; h1.style.setProperty('font-size', fs + 'px', 'important'); }
+  };
+  let fitT; window.addEventListener('resize', ()=>{ clearTimeout(fitT); fitT = setTimeout(fitHero, 120); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>fitHero());
+  setTimeout(()=>fitHero(), 1300);
+  (function(){
+    let saved = null;
+    try { saved = localStorage.getItem('yasr_lang'); } catch(e){}
+    let lang = saved;
+    if(!lang){
+      const prefs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']).map(x=>String(x).toLowerCase());
+      lang = prefs.map(x=>x.slice(0,2)).find(x=>I18N[x]) || 'en';
+    }
+    applyLang(lang);
+    const sw = document.querySelector('.lang-switch'), cur = document.querySelector('.lang-current');
+    const closeSw = ()=>{ sw.classList.remove('open'); cur.setAttribute('aria-expanded','false'); };
+    cur.addEventListener('click', e=>{ e.stopPropagation(); const o = sw.classList.toggle('open'); cur.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+    document.addEventListener('click', e=>{ if(!sw.contains(e.target)) closeSw(); });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && sw.classList.contains('open')){ closeSw(); cur.focus(); } });
+    document.querySelectorAll('.lang-list button').forEach(b=>b.addEventListener('click', ()=>{
+      applyLang(b.dataset.lang);
+      try { localStorage.setItem('yasr_lang', b.dataset.lang); } catch(e){}
+      closeSw();
+    }));
+  })();
+</script>
 </body>
 </html>
