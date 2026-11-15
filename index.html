@@ -52,7 +52,7 @@
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,600&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,600&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#0c0812;
@@ -93,8 +93,21 @@
     display:flex;align-items:center;justify-content:space-between;
     padding:22px 32px;
   }
-  @media(max-width:640px){header{padding:16px 20px;} .logo{font-size:24px !important;}}
-  .logo{font-family:'Playfair Display',Didot,'Bodoni MT','Big Caslon',Garamond,'Times New Roman',serif;font-size:42px;letter-spacing:0.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;}
+  @media(max-width:640px){header{padding:16px 20px;}}
+  /* Logo: mor Cinzel Decorative YASR, sol ustte; sadece acilis ekraninda gorunur, asagi inince kaybolur */
+  .logo{display:flex;flex-direction:column;align-items:center;text-decoration:none;flex-shrink:0;transition:opacity .4s ease, transform .4s ease;}
+  .logo-text{display:flex;flex-direction:column;align-items:center;}
+  .logo-yasr{font-family:'Cinzel Decorative','Playfair Display',serif;font-weight:700;font-size:84px;line-height:1;letter-spacing:.06em;color:#b366f0;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:geometricPrecision;text-shadow:none;}
+  .logo-sub{font-family:'Work Sans',sans-serif;font-weight:500;font-size:13px;letter-spacing:.7em;color:#cfa8ff;margin-top:8px;padding-left:.7em;-webkit-font-smoothing:antialiased;}
+  header.scrolled .logo{opacity:0;transform:translateY(-14px);pointer-events:none;}
+  @media(min-width:641px){.logo{position:relative;top:57px;}}
+  @media(max-width:640px){
+    .logo-yasr{font-size:44px;} .logo-sub{font-size:9px;letter-spacing:.55em;padding-left:.55em;margin-top:4px;}
+  }
+  header nav.menu{margin-left:auto;}
+  header{min-height:86px;box-sizing:border-box;}
+  @media(max-width:640px){header{min-height:69px;}}
   nav.menu{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:34px;align-items:center;}
   nav.menu a{font-size:14px;letter-spacing:0.02em;color:var(--off);position:relative;padding-bottom:4px;}
   nav.menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--off);transition:width .25s ease;}
@@ -364,7 +377,7 @@
 <body>
 
 <header>
-  <div class="logo">YASR TATTOO ART</div>
+  <a class="logo" href="#" translate="no" aria-label="YASR Tattoo Art"><span class="logo-text"><span class="logo-yasr">YASR</span><span class="logo-sub">TATTOO ART</span></span></a>
   <nav class="menu">
     <a href="#sanatci" data-i18n="nav_sanatci">Artist</a>
     <a href="#galeri" data-i18n="nav_galeri">Tattoos</a>
@@ -584,6 +597,15 @@
     });
   }, {rootMargin:'100px 0px', threshold:0.05});
   lazyVideos.forEach(v=>videoObserver.observe(v));
+
+  // Logo sadece acilis ekraninda: asagi inince kaybolur, yukari cikinca geri gelir
+  (function(){
+    const h=document.querySelector('header'); if(!h) return;
+    let tick=false;
+    const upd=()=>{ h.classList.toggle('scrolled', window.scrollY > 80); tick=false; };
+    window.addEventListener('scroll',()=>{ if(!tick){ tick=true; requestAnimationFrame(upd); } },{passive:true});
+    upd();
+  })();
 
   // Serit: sadece seritte buyuk kismi gorunen kartlarin videosu oynar (ayni anda en fazla ~3)
   const flashTrack = document.getElementById('flashTrack');
