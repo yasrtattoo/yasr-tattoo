@@ -233,8 +233,6 @@
   .credentials li span:first-child{color:var(--bone-dim);letter-spacing:.05em;}
   .signature{margin-top:32px;font-family:'Playfair Display',Didot,'Bodoni MT','Big Caslon',Garamond,'Times New Roman',serif;font-size:20px;color:#d4af37;}
 
-  .flash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:3px 0;background:linear-gradient(135deg,#6a1bb0,#9d2fe0 50%,#b97cf0);box-shadow:0 0 12px rgba(157,47,224,.25);margin-top:56px;}
-  @media(max-width:860px){.flash-grid{grid-template-columns:repeat(2,1fr);}}
   .flash-card{
     position:relative;aspect-ratio:3/4;
     padding:18px;display:flex;flex-direction:column;justify-content:space-between;
@@ -329,6 +327,38 @@
   .hero-sub{animation-delay:.4s;}
   .hero-actions{animation-delay:.55s;}
   .hero-stats{animation-delay:.7s;}
+
+  /* Galeri: kaydirmali serit (Reels tarzi), ayni anda sadece gorunen videolar oynar */
+  .tattoo-carousel{position:relative;margin-top:36px;}
+  .flash-grid{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    padding:6px 32px 10px;scroll-padding:0 32px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
+  .flash-grid::-webkit-scrollbar{display:none;}
+  .flash-grid .flash-card{flex:0 0 auto;width:min(30vw, calc(70vh * 9 / 16));aspect-ratio:9/16;padding:0;scroll-snap-align:start;
+    border:1px solid rgba(157,47,224,.55);box-shadow:0 0 14px rgba(157,47,224,.18);transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;}
+  .flash-grid .flash-card:hover{transform:translateY(-4px);border-color:#b97cf0;box-shadow:0 0 22px rgba(176,38,255,.38);}
+  .car-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:52px;height:52px;border-radius:50%;
+    background:rgba(10,5,16,.75);color:#fff;border:1.5px solid #b026ff;box-shadow:0 0 12px rgba(176,38,255,.5);
+    font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s, opacity .25s;backdrop-filter:blur(6px);}
+  .car-nav:hover{background:var(--grad);border-color:transparent;}
+  .car-nav[disabled]{opacity:.25;cursor:default;pointer-events:none;}
+  .car-prev{left:14px;} .car-next{right:14px;}
+  @media(hover:hover) and (pointer:fine){ .flash-grid{cursor:grab;} .flash-grid.dragging{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto;} }
+  .flash-grid.dragging .flash-card{pointer-events:none;}
+  .flash-grid, .flash-grid video{user-select:none;-webkit-user-select:none;-webkit-user-drag:none;}
+  .video-lightbox video{touch-action:pan-y;will-change:transform,opacity;}
+  .video-lightbox video.lb-anim{transition:transform .22s ease, opacity .22s ease;}
+  .car-dots{display:flex;justify-content:center;gap:10px;margin:18px 0 0;}
+  .car-dots button{width:9px;height:9px;border-radius:50%;border:none;padding:0;background:rgba(244,238,247,.25);cursor:pointer;transition:background .25s, transform .25s;}
+  .car-dots button.active{background:#b026ff;box-shadow:0 0 8px #b026ff;transform:scale(1.3);}
+  @media(max-width:860px){
+    .flash-grid{gap:12px;padding:6px 20px 10px;scroll-padding:0 20px;}
+    .flash-grid .flash-card{width:72vw;max-width:340px;}
+    .flash-grid .flash-card:hover{transform:none;}
+    .car-nav{display:none;}
+  }
+  @media(min-width:861px){
+    #galeri{padding-top:92px;padding-bottom:72px;}
+  }
 </style>
 </head>
 <body>
@@ -391,20 +421,25 @@
   <div class="wrap" style="max-width:none;padding:0 32px;">
     <h2 data-i18n-html="gallery_title">Tattoos</h2>
   </div>
-    <div class="flash-grid" style="max-width:none;margin-left:0;margin-right:0;">
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video2.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video3.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video4.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video5.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video6.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video7.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video8.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none"><source data-src="video9.mp4" type="video/mp4"></video></div>
+    <div class="tattoo-carousel">
+    <button class="car-nav car-prev" type="button" aria-label="Previous tattoos">&#10094;</button>
+    <div class="flash-grid" id="flashTrack">
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video2-poster.jpg"><source data-src="video2-smooth.mp4" type="video/mp4"></video></div>
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video3-poster.jpg"><source data-src="video3-smooth.mp4" type="video/mp4"></video></div>
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video4-poster.jpg"><source data-src="video4-smooth.mp4" type="video/mp4"></video></div>
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video5-poster.jpg"><source data-src="video5-smooth.mp4" type="video/mp4"></video></div>
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video6-poster.jpg"><source data-src="video6-smooth.mp4" type="video/mp4"></video></div>
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video7-poster.jpg"><source data-src="video7-smooth.mp4" type="video/mp4"></video></div>
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video8-poster.jpg"><source data-src="video8-smooth.mp4" type="video/mp4"></video></div>
+      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video9-poster.jpg"><source data-src="video9-smooth.mp4" type="video/mp4"></video></div>
     </div>
+    <button class="car-nav car-next" type="button" aria-label="Next tattoos">&#10095;</button>
+  </div>
+  <div class="car-dots" id="carDots" aria-hidden="true"></div>
 </section>
 
 <section class="section" id="iletisim" style="position:relative;overflow:hidden;">
-  <video muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;z-index:0;filter:contrast(1.05) saturate(1.05);"><source data-src="video10.mp4" type="video/mp4"></video>
+  <video muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;z-index:0;filter:contrast(1.05) saturate(1.05);"><source data-src="video10-lite.mp4" type="video/mp4"></video>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg, var(--ink) 0%, rgba(12,8,18,.35) 18%, rgba(12,8,18,.4) 80%, var(--ink) 100%);z-index:0;"></div>
 <div class="wrap" style="position:relative;z-index:1;">
     <div class="contact-grid">
@@ -466,9 +501,10 @@
     if(!hv) return;
     hv.muted = true; hv.defaultMuted = true; hv.playsInline = true;
     let started = false;
+    let heroVisible = true;
     hv.addEventListener('playing', ()=>{ started = true; removeGestureListeners(); });
     function tryPlay(){
-      if(started || document.hidden) return;
+      if(started || document.hidden || !heroVisible) return;
       const p = hv.play();
       if(p && p.catch) p.catch(()=>{});
     }
@@ -488,35 +524,105 @@
     let n = 0;
     const iv = setInterval(()=>{ if(started || ++n > 8){ clearInterval(iv); return; } tryPlay(); }, 700);
     tryPlay();
-  })();
 
-  document.querySelectorAll('.flash-video').forEach(v=>{
-    v.playbackRate = 0.5;
-    v.addEventListener('loadedmetadata', ()=>{ v.playbackRate = 0.5; });
-    v.addEventListener('play', ()=>{ v.playbackRate = 0.5; });
-  });
-
-  // Lazy-load: below-the-fold videos only start downloading/playing once scrolled into view
-  function lazyLoadVideo(video){
-    if(!video || video.dataset.lazyLoaded) return;
-    const source = video.querySelector('source[data-src]');
-    if(source){
-      source.src = source.dataset.src;
-      video.load();
+    // Hero ekran disina kaydirilinca (alttaki bolumler ustunu kapatir) durdur, geri gelince tekrar oynat.
+    // Boylece iPhone'da galeri videolari icin kod cozucu bos kalir ve hero simsiyah kalmaz.
+    const spacer = document.querySelector('.hero-spacer');
+    function checkHero(){
+      const vis = window.scrollY < (spacer ? spacer.offsetHeight : window.innerHeight) - 2;
+      if(vis === heroVisible) return;
+      heroVisible = vis;
+      if(vis){ const p = hv.play(); if(p && p.catch) p.catch(()=>{}); }
+      else { hv.pause(); }
     }
-    video.play().catch(()=>{});
-    video.dataset.lazyLoaded = 'true';
-  }
-  const lazyVideos = document.querySelectorAll('.flash-video, #iletisim video');
-  const videoObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        lazyLoadVideo(entry.target);
-        videoObserver.unobserve(entry.target);
+    let heroTick = false;
+    window.addEventListener('scroll', ()=>{
+      if(heroTick) return; heroTick = true;
+      requestAnimationFrame(()=>{ heroTick = false; checkHero(); });
+    }, {passive:true});
+    window.addEventListener('resize', checkHero);
+    // Hero gorunurken beklenmedik sekilde durursa (iOS) tekrar baslat
+    hv.addEventListener('pause', ()=>{
+      if(heroVisible && !document.hidden && !hv.ended){
+        setTimeout(()=>{ if(hv.paused && heroVisible && !document.hidden){ const p = hv.play(); if(p && p.catch) p.catch(()=>{}); } }, 400);
       }
     });
-  }, {rootMargin:'200px 0px', threshold:0.01});
+  })();
+
+
+  // Lazy-load + sadece ekranda gorunen videoyu oynat (iPhone ayni anda cok videoyu cozemez; gorunmeyeni durduruyoruz)
+  const visibleVideos = new WeakSet();
+  function lazyLoadVideo(video, autoplay){
+    if(!video) return;
+    if(autoplay === undefined) autoplay = true;
+    if(!video.dataset.lazyLoaded){
+      const source = video.querySelector('source[data-src]');
+      if(source){
+        source.src = source.dataset.src;
+        video.load();
+      }
+      video.dataset.lazyLoaded = 'true';
+      // Veri gelince hala ekrandaysa ve durmussa tekrar dene (iOS ilk play() cagrisini yutabiliyor)
+      ['loadeddata','canplay'].forEach(ev=>video.addEventListener(ev, ()=>{
+        if(video.paused && visibleVideos.has(video)) video.play().catch(()=>{});
+      }));
+    }
+    if(autoplay) video.play().catch(()=>{});
+  }
+  const lazyVideos = document.querySelectorAll('#iletisim video');
+  const videoObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const v = entry.target;
+      if(entry.intersectionRatio > 0){
+        visibleVideos.add(v);
+        lazyLoadVideo(v, true);
+        if(v.paused) v.play().catch(()=>{});
+      } else {
+        visibleVideos.delete(v);
+        if(v.dataset.lazyLoaded) v.pause();
+      }
+    });
+  }, {rootMargin:'100px 0px', threshold:0.05});
   lazyVideos.forEach(v=>videoObserver.observe(v));
+
+  // Serit: sadece seritte buyuk kismi gorunen kartlarin videosu oynar (ayni anda en fazla ~3)
+  const flashTrack = document.getElementById('flashTrack');
+  const flashObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const v = entry.target;
+      if(entry.isIntersecting && entry.intersectionRatio >= 0.6){
+        visibleVideos.add(v); lazyLoadVideo(v, true);
+        if(v.paused) v.play().catch(()=>{});
+      } else {
+        visibleVideos.delete(v);
+        if(v.dataset.lazyLoaded) v.pause();
+      }
+    });
+  }, {threshold:[0,0.6,1]});
+  document.querySelectorAll('.flash-video').forEach(v=>flashObserver.observe(v));
+
+  (function(){
+    if(!flashTrack) return;
+    const cards = Array.from(flashTrack.querySelectorAll('.flash-card'));
+    const prev = document.querySelector('.car-prev'), next = document.querySelector('.car-next');
+    const dotsWrap = document.getElementById('carDots');
+    const step = ()=>{ const c = cards[0]; return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(flashTrack).columnGap || 16) : 300; };
+    const dots = cards.map((c,i)=>{ const b=document.createElement('button'); b.type='button'; b.tabIndex=-1;
+      b.addEventListener('click',()=>flashTrack.scrollTo({left:i*step(),behavior:'smooth'})); dotsWrap.appendChild(b); return b; });
+    function update(){
+      const max = flashTrack.scrollWidth - flashTrack.clientWidth - 2;
+      prev.disabled = flashTrack.scrollLeft <= 2;
+      next.disabled = flashTrack.scrollLeft >= max;
+      let idx = Math.round(flashTrack.scrollLeft / step());
+      if(flashTrack.scrollLeft >= max) idx = cards.length - 1;
+      dots.forEach((d,i)=>d.classList.toggle('active', i===Math.min(idx,cards.length-1)));
+    }
+    prev.addEventListener('click',()=>flashTrack.scrollBy({left:-step(),behavior:'smooth'}));
+    next.addEventListener('click',()=>flashTrack.scrollBy({left:step(),behavior:'smooth'}));
+    flashTrack.addEventListener('scroll',()=>requestAnimationFrame(update),{passive:true});
+    window.addEventListener('resize',update);
+    update();
+  })();
 
   const formLoadedAt = Date.now();
 
@@ -595,7 +701,7 @@
 
   function loadLightboxVideo(card){
     const cardVideo = card.querySelector('video');
-    lazyLoadVideo(cardVideo);
+    lazyLoadVideo(cardVideo, false);
     const sourceVideo = card.querySelector('video source');
     if(!sourceVideo || !sourceVideo.src) return;
     const lightbox = document.getElementById('videoLightbox');
@@ -606,7 +712,6 @@
     src.type = sourceVideo.type;
     lbVideo.appendChild(src);
     lbVideo.load();
-    lbVideo.playbackRate = 0.5;
     lbVideo.play().catch(()=>{});
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -622,6 +727,70 @@
     document.body.style.overflow = '';
     lightboxIndex = -1;
   }
+  // Buyuk videoda (lightbox) parmakla kaydirma: sola = sonraki, saga = onceki
+  (function(){
+    const lb = document.getElementById('videoLightbox');
+    const lv = document.getElementById('lightboxVideo');
+    let sx=0, sy=0, dx=0, tracking=false, horiz=null, swipedAt=0;
+    lb.addEventListener('touchstart', e=>{
+      if(e.touches.length!==1 || e.target.closest('.lightbox-nav,.lightbox-close')) return;
+      sx=e.touches[0].clientX; sy=e.touches[0].clientY; dx=0; tracking=true; horiz=null;
+      lv.classList.remove('lb-anim');
+    }, {passive:true});
+    lb.addEventListener('touchmove', e=>{
+      if(!tracking) return;
+      const mx=e.touches[0].clientX-sx, my=e.touches[0].clientY-sy;
+      if(horiz===null && (Math.abs(mx)>8 || Math.abs(my)>8)) horiz = Math.abs(mx) > Math.abs(my);
+      if(!horiz) return;
+      dx=mx; lv.style.transform='translateX('+dx+'px)'; lv.style.opacity=String(Math.max(.4,1-Math.abs(dx)/600));
+    }, {passive:true});
+    lb.addEventListener('touchend', ()=>{
+      if(!tracking) return; tracking=false;
+      lv.classList.add('lb-anim');
+      if(horiz && Math.abs(dx)>50){
+        const dir = dx<0 ? 1 : -1; swipedAt=Date.now();
+        lv.style.transform='translateX('+(dx<0?-120:120)+'px)'; lv.style.opacity='0';
+        setTimeout(()=>{
+          navigateLightbox(dir);
+          lv.classList.remove('lb-anim');
+          lv.style.transform='translateX('+(dx<0?120:-120)+'px)'; lv.style.opacity='0';
+          requestAnimationFrame(()=>requestAnimationFrame(()=>{ lv.classList.add('lb-anim'); lv.style.transform=''; lv.style.opacity=''; }));
+        },200);
+      } else { lv.style.transform=''; lv.style.opacity=''; }
+    }, {passive:true});
+    // Kaydirmadan hemen sonra gelen tiklama lightbox'i kapatmasin
+    lb.addEventListener('click', e=>{ if(Date.now()-swipedAt<450){ e.stopPropagation(); e.preventDefault(); } }, true);
+  })();
+
+  // Masaustunde seridi fareyle tutup surukleme (kisa tiklama yine buyuk videoyu acar)
+  (function(){
+    const t = document.getElementById('flashTrack'); if(!t) return;
+    let down=false, startX=0, startLeft=0, moved=false, dragEndAt=0;
+    t.addEventListener('pointerdown', e=>{
+      if(e.pointerType!=='mouse' || e.button!==0) return;
+      down=true; moved=false; startX=e.clientX; startLeft=t.scrollLeft;
+    });
+    window.addEventListener('pointermove', e=>{
+      if(!down) return;
+      const d=e.clientX-startX;
+      if(!moved && Math.abs(d)>6){ moved=true; t.classList.add('dragging'); }
+      if(moved){ t.scrollLeft = startLeft - d; e.preventDefault(); }
+    });
+    window.addEventListener('pointerup', ()=>{
+      if(!down) return; down=false;
+      if(moved){
+        dragEndAt=Date.now();
+        const left=t.scrollLeft; t.classList.remove('dragging');
+        // en yakin karta yumusakca otur
+        t.scrollLeft=left; const c=t.querySelector('.flash-card');
+        const stepW = c ? c.getBoundingClientRect().width + 16 : 300;
+        t.scrollTo({left:Math.round(left/stepW)*stepW, behavior:'smooth'});
+      }
+    });
+    t.addEventListener('click', e=>{ if(Date.now()-dragEndAt<300){ e.stopPropagation(); e.preventDefault(); } }, true);
+    t.addEventListener('dragstart', e=>e.preventDefault());
+  })();
+
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') closeVideoLightbox();
     if(document.getElementById('videoLightbox').classList.contains('open')){
