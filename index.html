@@ -82,12 +82,14 @@
   .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
   @media(max-width:640px){.wrap{padding:0 20px;}}
   .section{padding:96px 0;position:relative;z-index:2;background:var(--ink);}
-  #sanatci{
-    background:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), var(--ink) url('artist-bg.jpg') no-repeat center center;
+  .bg-flow{
+    position:relative;z-index:2;
+    background:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), var(--ink) url('flow-bg.jpg') no-repeat center top;
     background-size:cover, cover;
   }
+  .bg-flow > .section{background:transparent;}
   @media(max-width:860px) and (orientation:portrait){
-    #sanatci{background-image:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), url('artist-bg-m.jpg');}
+    .bg-flow{background-image:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), url('flow-bg-m.jpg');}
   }
   @media(max-width:640px){.section{padding:64px 0;}}
 
@@ -453,6 +455,7 @@
 </section>
 <div class="hero-spacer"></div>
 
+<div class="bg-flow">
 <section class="section" id="sanatci">
   <div class="wrap">
     <div class="about-grid">
@@ -495,6 +498,8 @@
   </div>
   <div class="car-dots" id="carDots" aria-hidden="true"></div>
 </section>
+
+</div>
 
 <section class="section" id="iletisim" style="position:relative;overflow:hidden;">
   <video muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;z-index:0;filter:contrast(1.05) saturate(1.05);"><source data-src="video10-lite.mp4" type="video/mp4"></video>
