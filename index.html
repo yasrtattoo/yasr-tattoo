@@ -83,8 +83,11 @@
   @media(max-width:640px){.wrap{padding:0 20px;}}
   .section{padding:96px 0;position:relative;z-index:2;background:var(--ink);}
   #sanatci{
-    background:linear-gradient(rgba(12,8,18,.88),rgba(12,8,18,.88)), var(--ink) url('graffiti-bg.jpg') no-repeat center center;
+    background:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), var(--ink) url('artist-bg.jpg') no-repeat center center;
     background-size:cover, cover;
+  }
+  @media(max-width:860px) and (orientation:portrait){
+    #sanatci{background-image:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), url('artist-bg-m.jpg');}
   }
   @media(max-width:640px){.section{padding:64px 0;}}
 
