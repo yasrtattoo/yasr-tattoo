@@ -421,6 +421,25 @@
 
   /* Acilis buyuk basligi gorunmez (Google icin sayfada duruyor) */
   .hero h1.sr-only{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0 0 0 0) !important;white-space:nowrap !important;border:0 !important;}
+
+  /* Ust menu: cam efektli, ince mor cerceveli tek kapsul (sadece masaustu) */
+  @media(min-width:861px){
+    nav.menu{top:20px;transform:translateX(-50%);gap:6px;padding:6px 6px 6px 10px;border-radius:50px;
+      background:rgba(10,5,16,.42);border:1px solid rgba(179,102,240,.32);
+      backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+      box-shadow:0 8px 30px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);}
+    nav.menu a:not(.nav-cta){font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+      text-shadow:none;color:#e9dcf7;padding:10px 16px;border-radius:50px;transition:color .25s ease, background .25s ease;}
+    nav.menu a:not(.nav-cta)::after{display:none;}
+    nav.menu a:not(.nav-cta):hover{color:#fff;background:rgba(179,102,240,.16);}
+    nav.menu a.nav-cta{margin-left:6px;padding:10px 22px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      border:1px solid #b026ff;background:linear-gradient(135deg,#7a2bd6,#b026ff);text-shadow:none;
+      box-shadow:0 0 14px rgba(176,38,255,.45);}
+    nav.menu a.nav-cta:hover{background:linear-gradient(135deg,#8a3be6,#c040ff);text-shadow:none;
+      box-shadow:0 0 22px rgba(176,38,255,.7);}
+    nav.menu .lang-switch{margin-left:4px;}
+    nav.menu .lang-current{height:38px;background:transparent;border-color:rgba(255,255,255,.14);}
+  }
 </style>
 </head>
 <body>
