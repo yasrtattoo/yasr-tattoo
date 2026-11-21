@@ -418,6 +418,9 @@
   @media(min-width:861px){
     #galeri{padding-top:92px;padding-bottom:72px;}
   }
+
+  /* Acilis buyuk basligi gorunmez (Google icin sayfada duruyor) */
+  .hero h1.sr-only{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0 0 0 0) !important;white-space:nowrap !important;border:0 !important;}
 </style>
 </head>
 <body>
@@ -444,7 +447,7 @@
     <video id="heroVideo" class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="video1-poster.jpg" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:none;filter:contrast(1.08) saturate(1.05);pointer-events:none;"><source src="video1.mp4" type="video/mp4"></video>
   </div>
 <div class="hero-inner">
-    <h1 data-i18n="hero_h1">No copies.<br>No generic designs.<br>No shortcuts.</h1>
+    <h1 class="sr-only" data-i18n="hero_h1">No copies.<br>No generic designs.<br>No shortcuts.</h1>
     <p class="hero-sub" data-i18n="hero_sub">With over 13 years of experience, YASR creates custom tattoos built around individuality, detail, and impact. From complex cover-ups to large-scale original pieces, every tattoo is designed to be unmistakably yours.</p>
     <p class="hero-tagline" data-i18n="hero_tagline">NOT JUST A TATTOO. A SIGNATURE.</p>
     <div class="hero-actions">
