@@ -440,6 +440,123 @@
     nav.menu .lang-switch{margin-left:4px;}
     nav.menu .lang-current{height:38px;background:transparent;border-color:rgba(255,255,255,.14);}
   }
+
+  /* ===== COVER UP: once/sonra surgu (22 Kasim 2026) ===== */
+  #galeri{padding-bottom:36px;}
+  #cover-up{text-align:center;padding-top:0;}
+  #cover-up h2{margin-bottom:8px;filter:drop-shadow(0 0 14px rgba(168,85,247,.45));}
+  .cu-card{position:relative;margin:0 auto;width:min(420px,86vw);height:calc(min(420px,86vw) * 1.25);aspect-ratio:4/5;padding:2px;border-radius:20px;overflow:hidden;cursor:ew-resize;outline:none;
+    background:rgba(192,132,252,.18);box-shadow:0 0 22px rgba(124,58,237,.3),0 30px 60px rgba(0,0,0,.6);transition:box-shadow .4s;
+    -webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:pan-y;}
+  .cu-card::before{content:"";position:absolute;left:50%;top:50%;width:170%;height:136%;transform:translate(-50%,-50%);
+    background:conic-gradient(transparent 0 62%,#7c3aed 74%,#fff 82%,#c084fc 87%,transparent 97%);animation:cu-rot 4.5s linear infinite;}
+  @keyframes cu-rot{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .cu-card.on{box-shadow:0 0 40px rgba(168,85,247,.65),0 30px 60px rgba(0,0,0,.6);}
+  .cu-card:focus-visible{box-shadow:0 0 0 3px #fff,0 0 40px rgba(168,85,247,.65);}
+  .cu-in{position:absolute;inset:3px;z-index:1;overflow:hidden;border-radius:17px;background:#000;}
+  .cu-in img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none;}
+  .cu-before{--sx:0px;clip-path:inset(0 calc(100% - var(--sx)) 0 0);}
+  .cu-before.anim{transition:clip-path .45s cubic-bezier(.5,0,.2,1);}
+  .cu-hd{position:absolute;z-index:3;top:0;bottom:0;left:0;width:1px;margin-left:-.5px;background:linear-gradient(transparent,rgba(255,255,255,.55) 15%,rgba(255,255,255,.55) 85%,transparent);opacity:0;transition:opacity .3s;}
+  .cu-hd::after{content:"";position:absolute;top:50%;left:50%;width:14px;height:44px;margin:-22px 0 0 -7px;border-radius:8px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.38);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 14px rgba(0,0,0,.35);transition:border-color .3s,background .3s;}
+  .cu-card.on .cu-hd::after{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.12);}
+  .cu-hd i{position:absolute;z-index:1;top:50%;left:50%;width:6px;height:1px;margin:-.5px 0 0 -3px;border-radius:1px;background:rgba(255,255,255,.85);box-shadow:0 -4px 0 rgba(255,255,255,.85),0 4px 0 rgba(255,255,255,.85);}
+  .cu-hd.anim{transition:left .45s cubic-bezier(.5,0,.2,1),opacity .3s;}
+  .cu-card.on .cu-hd{opacity:1;}
+  .cu-tag{position:absolute;z-index:4;top:14px;padding:6px 13px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:.06em;
+    background:rgba(10,5,16,.62);border:1px solid rgba(192,132,252,.55);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:opacity .25s;}
+  .cu-tag.b{left:14px;opacity:0;}
+  .cu-tag.a{right:14px;}
+  .cu-hint{margin:0 0 20px;min-height:1.5em;font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#d8b4fe;text-shadow:0 1px 10px rgba(0,0,0,.9),0 0 12px rgba(192,132,252,.45);}
+  .cu-src{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+  .cu-hint .t{display:none;}
+  @media(max-width:420px){.cu-hint{font-size:11.5px;letter-spacing:.04em;}}
+  .cu-type::after{content:"";display:inline-block;width:2px;height:1.05em;margin-left:3px;vertical-align:-2px;background:#fff;box-shadow:0 0 6px #c084fc;animation:cu-cur .8s steps(1) infinite;}
+  @keyframes cu-cur{50%{opacity:0;}}
+  @media (hover:none),(pointer:coarse){.cu-hint .m{display:none;}.cu-hint .t{display:inline;}.cu-hd{opacity:1;}}
+  .sp-word{display:inline-block;white-space:nowrap;}
+  .sp-word.mask{overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em;}
+  .sp-unit{display:inline-block;will-change:transform,opacity;}
+
+  /* yay hissi veren harf animasyonu: CSS gecisi (telefonda akici, ekran kartinda calisir) */
+  .ch-in{display:inline-block;opacity:0;transform:translateY(.95em);transition:opacity .45s ease,transform .85s cubic-bezier(.34,1.56,.64,1);transition-delay:var(--cd,0ms);}
+  .ch-go .ch-in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){.ch-in{transition:none;opacity:1;transform:none;}}
+  .cu-card.cu-off::before{animation-play-state:paused;}
+  .cu-card::before{will-change:transform;}
+
+  /* ===== TATTOOS: COVERFLOW 3D VITRIN (22 Kasim 2026) ===== */
+  .cflow{--cw:min(clamp(260px,22vw,420px),calc((100vh - 250px) * .5625));position:relative;contain:layout paint;height:calc(var(--cw) * 1.778 + 90px);margin-top:18px;perspective:1300px;overflow:hidden;touch-action:pan-y;-webkit-user-select:none;user-select:none;}
+  .cf-stage{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;}
+  .cflow .cf-it{pointer-events:auto;}
+  .cflow .cf-it{position:absolute;left:50%;top:46%;width:var(--cw);height:calc(var(--cw) * 1.778);aspect-ratio:9/16;padding:0;margin:0;border-radius:18px;overflow:visible;background:transparent;
+    transform:translate(-50%,-50%);transition:transform .75s cubic-bezier(.2,.8,.2,1),opacity .6s;will-change:transform;cursor:pointer;}
+  .cflow .cf-it::after{content:"";position:absolute;inset:0;border-radius:18px;background:#05020a;opacity:var(--dim,0);transition:opacity .6s;pointer-events:none;z-index:2;}
+  .cflow .cf-it .flash-video{border-radius:18px;border:1px solid rgba(181,101,240,.35);background:#000;}
+  .cflow .cf-it.act .flash-video{border:2px solid #c084fc;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 0 44px rgba(176,38,255,.6),0 30px 60px rgba(0,0,0,.6);}
+  .cflow .cf-ref{position:absolute;left:0;right:0;top:calc(100% + 8px);width:100%;height:38%;object-fit:cover;object-position:bottom;transform:scaleY(-1);border-radius:18px;
+    opacity:.22;pointer-events:none;-webkit-mask-image:linear-gradient(to top,#000 0%,transparent 75%);mask-image:linear-gradient(to top,#000 0%,transparent 75%);}
+  .cflow{cursor:grab;}
+  .cflow.cf-drag{cursor:grabbing;}
+  .cflow.cf-drag .cf-it{transition:none!important;}
+  .cflow.cf-drag .cf-it::after{transition:none;}
+  .cflow:focus{outline:none;}
+  .cflow:focus-visible{outline:2px solid rgba(192,132,252,.7);outline-offset:-4px;border-radius:12px;}
+  .cf-nav{position:absolute;top:46%;z-index:200;width:48px;height:48px;margin-top:-24px;border-radius:50%;border:1px solid rgba(181,101,240,.6);background:rgba(10,5,16,.6);
+    color:#fff;font-size:18px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .25s,box-shadow .25s;}
+  .cf-nav:hover{background:var(--grad);box-shadow:0 0 18px rgba(176,38,255,.55);}
+  .cf-prev{left:clamp(12px,4vw,60px);}.cf-next{right:clamp(12px,4vw,60px);}
+  #galeri .car-dots{margin-top:0;}
+  @media(max-width:860px){
+    .cflow{height:min(640px,128vw);}
+    .cflow .cf-it{width:min(62vw,300px);height:calc(min(62vw,300px) * 1.778);top:45%;}
+    .cf-nav{display:none;}
+    .cflow .cf-ref{display:none;}
+    .cflow .cf-it.act .flash-video{box-shadow:0 0 22px rgba(176,38,255,.55);}
+  }
+  @media (prefers-reduced-motion:reduce){.cflow .cf-it{transition:none;}}
+
+  /* ===== RANDEVU: hizli secim etiketleri + canli acik/kapali + kutu kenar isigi (23 Kasim 2026) ===== */
+  .idea-chips{display:flex;flex-wrap:wrap;gap:8px;margin:-10px 0 20px;}
+  .idea-chips button{border:1px solid rgba(181,101,240,.45);background:rgba(139,47,214,.08);color:var(--bone-dim);border-radius:30px;padding:7px 13px;font:600 12px 'Work Sans',sans-serif;cursor:pointer;transition:background .25s,border-color .25s,color .25s,box-shadow .25s;min-height:34px;}
+  .idea-chips button:hover{border-color:#c084fc;color:#fff;}
+  .idea-chips button.on{background:linear-gradient(135deg,#9d4cf0,#6d28d9);border-color:transparent;color:#fff;box-shadow:0 0 14px rgba(176,38,255,.45);}
+  .open-badge{display:inline-flex;align-items:center;gap:7px;margin-top:8px;padding:5px 11px;border-radius:30px;font:600 12px 'Work Sans',sans-serif;background:rgba(10,5,16,.45);border:1px solid rgba(255,255,255,.12);}
+  .open-badge i{position:relative;width:8px;height:8px;border-radius:50%;background:currentColor;flex:none;}
+  .open-badge.op i::after{content:"";position:absolute;inset:0;border-radius:50%;background:currentColor;animation:obPulse 1.8s ease-out infinite;will-change:transform,opacity;}
+  .open-badge.op{color:#4ade80;}
+  .open-badge.cl{color:#fb7185;}
+  .open-badge span{color:#f4eef7;}
+  @keyframes obPulse{0%{transform:scale(1);opacity:.6;}80%,100%{transform:scale(2.8);opacity:0;}}
+  #iletisim.off-screen .open-badge i::after{animation-play-state:paused;}
+  @property --pang{syntax:'<angle>';inherits:false;initial-value:0deg;}
+  .contact-panel{position:relative;}
+  @media (min-width:861px) and (hover:hover){
+    .contact-panel::before{content:"";position:absolute;inset:-1px;border-radius:29px;padding:1.5px;pointer-events:none;
+      background:conic-gradient(from var(--pang),transparent 0 70%,#7c3aed 80%,#fff 86%,#c084fc 90%,transparent 98%);
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+      animation:edgeSpin 6s linear infinite;}
+    .contact-grid .contact-panel:last-child::before{animation-delay:-3s;}
+    #iletisim.off-screen .contact-panel::before{animation-play-state:paused;}
+  }
+  @keyframes edgeSpin{to{--pang:360deg;}}
+  @media (prefers-reduced-motion:reduce){.contact-panel::before,.open-badge i::after{animation:none!important;}}
+  /* ===== KAYDIRINCA HER SEY CANLANSIN (23 Kasim 2026) ===== */
+  .sx{transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1),clip-path 1.1s cubic-bezier(.7,0,.2,1),filter .9s;transition-delay:var(--d,0ms);}
+  .sx.up{opacity:0;transform:translateY(46px);}
+  .sx.left{opacity:0;transform:translateX(-46px);}
+  .sx.zoom{opacity:0;transform:translateY(40px) scale(.92);filter:blur(6px);}
+  .sx.clip{clip-path:inset(100% 0 0 0);}
+  .sx.sign{clip-path:inset(0 100% 0 0);transition-duration:1.6s;}
+  .sx.line{transform:scaleX(0);transform-origin:left;}
+  .sx.on{opacity:1;transform:none;filter:none;clip-path:inset(0 0 0 0);}
+  .sx-h .ch{display:inline-block;will-change:transform,opacity;}
+  .sx-h .ln{display:block;overflow:hidden;padding-bottom:.06em;}
+  .sx-h .wd{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:top;padding-bottom:.06em;}
+  .about-media.sx.clip img{transform:scale(1.15);transition:transform 1.6s cubic-bezier(.2,.8,.2,1);}
+  .about-media.sx.clip.on img{transform:none;}
+  @media (prefers-reduced-motion:reduce){.sx{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important;filter:none!important;}}
 </style>
 </head>
 <body>
@@ -503,21 +620,36 @@
   <div class="wrap" style="max-width:none;padding:0 32px;">
     <h2 data-i18n="gallery_title">Tattoos</h2>
   </div>
-    <div class="tattoo-carousel">
-    <button class="car-nav car-prev" type="button" aria-label="Previous tattoos">&#10094;</button>
-    <div class="flash-grid" id="flashTrack">
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video2-poster.jpg"><source data-src="video2-smooth.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video3-poster.jpg"><source data-src="video3-smooth.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video4-poster.jpg"><source data-src="video4-smooth.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video5-poster.jpg"><source data-src="video5-smooth.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video6-poster.jpg"><source data-src="video6-smooth.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video7-poster.jpg"><source data-src="video7-smooth.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video8-poster.jpg"><source data-src="video8-smooth.mp4" type="video/mp4"></video></div>
-      <div class="flash-card" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video9-poster.jpg"><source data-src="video9-smooth.mp4" type="video/mp4"></video></div>
+    <div class="cflow" id="cflow" aria-roledescription="carousel" aria-label="Tattoo gallery">
+    <button class="cf-nav cf-prev" type="button" aria-label="Previous tattoo">&#10094;</button>
+    <div class="cf-stage" id="cfStage">
+      <div class="flash-card cf-it" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video2-poster.jpg"><source data-src="video2-smooth.mp4" type="video/mp4"></video><img class="cf-ref" src="video2-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+      <div class="flash-card cf-it" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video3-poster.jpg"><source data-src="video3-smooth.mp4" type="video/mp4"></video><img class="cf-ref" src="video3-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+      <div class="flash-card cf-it" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video5-poster.jpg"><source data-src="video5-smooth.mp4" type="video/mp4"></video><img class="cf-ref" src="video5-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+      <div class="flash-card cf-it" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video6-poster.jpg"><source data-src="video6-smooth.mp4" type="video/mp4"></video><img class="cf-ref" src="video6-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+      <div class="flash-card cf-it" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video7-poster.jpg"><source data-src="video7-smooth.mp4" type="video/mp4"></video><img class="cf-ref" src="video7-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+      <div class="flash-card cf-it" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video8-poster.jpg"><source data-src="video8-smooth.mp4" type="video/mp4"></video><img class="cf-ref" src="video8-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+      <div class="flash-card cf-it" onclick="openVideoLightbox(this)"><video class="flash-video" muted loop playsinline preload="none" poster="video9-poster.jpg"><source data-src="video9-smooth.mp4" type="video/mp4"></video><img class="cf-ref" src="video9-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
     </div>
-    <button class="car-nav car-next" type="button" aria-label="Next tattoos">&#10095;</button>
+    <button class="cf-nav cf-next" type="button" aria-label="Next tattoo">&#10095;</button>
   </div>
   <div class="car-dots" id="carDots" aria-hidden="true"></div>
+</section>
+
+<section class="section" id="cover-up" aria-labelledby="cuTitle">
+  <div class="wrap">
+    <h2 id="cuTitle" data-i18n="cu_title" data-text-fx>Cover Up</h2>
+    <p class="cu-hint"><span class="cu-src m" data-i18n="cu_hint_m">Move your mouse over the photo to compare</span><span class="cu-src t" data-i18n="cu_hint_t">Drag the slider to compare</span><span class="cu-type" aria-hidden="true"></span></p>
+    <div class="cu-card" id="cuCard" tabindex="0" role="slider" aria-label="Cover-Up before and after comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="cu-in">
+        <img src="cover-after.jpg" alt="Cover-Up tattoo, finished" width="864" height="1080" loading="lazy" decoding="async">
+        <img class="cu-before" src="cover-before.jpg" alt="Old tattoo before the Cover-Up" width="864" height="1080" loading="lazy" decoding="async">
+        <span class="cu-hd" aria-hidden="true"><i></i></span>
+        <span class="cu-tag b" aria-hidden="true" data-i18n="cu_before">Before</span>
+        <span class="cu-tag a" aria-hidden="true" data-i18n="cu_after">After</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 </div>
@@ -539,6 +671,7 @@
           <div>
             <div class="label" data-i18n="lbl_hours">Working Hours</div>
             <div class="value">11:00 &ndash; 20:00</div>
+            <div class="open-badge" id="openBadge" role="status"><i aria-hidden="true"></i><span></span></div>
           </div>
           <div>
             <div class="label" data-i18n="lbl_email">Email</div>
@@ -558,6 +691,7 @@
           <div class="field"><label for="f-phone" data-i18n="f_phone_l">Phone</label><input type="tel" id="f-phone" name="phone" placeholder="+1 555 555 5555"></div>
           <div class="field"><label for="f-email" data-i18n="f_email_l">Email</label><input type="email" id="f-email" name="email" placeholder="you@example.com" required></div>
           <div class="field"><label for="f-message" data-i18n="f_msg_l">Your Tattoo Idea</label><textarea id="f-message" name="message" placeholder="Style, size, body placement, and any references..." data-i18n-ph="f_msg_ph"></textarea></div>
+          <div class="idea-chips" id="ideaChips" role="group" aria-label="Quick style picks"><button type="button" data-v="Custom" data-i18n="chip_custom">Custom</button><button type="button" data-v="Cover-Up" data-i18n="chip_cover">Cover-Up</button><button type="button" data-v="Realism" data-i18n="chip_realism">Realism</button><button type="button" data-v="Color" data-i18n="chip_color">Color</button><button type="button" data-v="Black &amp; Grey" data-i18n="chip_bg">Black &amp; Grey</button></div>
           <p class="form-note" data-i18n="form_note">Your appointment request will be sent directly to our team.</p>
           <input type="hidden" name="language" id="f-language" value="English">
           <button class="btn solid full" type="submit" id="bookingSubmitBtn" data-i18n="form_btn">Send Appointment Request</button>
@@ -697,7 +831,7 @@
       }
     });
   }, {threshold:[0,0.6,1]});
-  document.querySelectorAll('.flash-video').forEach(v=>flashObserver.observe(v));
+  Array.prototype.filter.call(document.querySelectorAll('.flash-video'), v=>!v.closest('.cf-it')).forEach(v=>flashObserver.observe(v));
 
   (function(){
     if(!flashTrack) return;
@@ -913,7 +1047,7 @@
 
 <script>
   // Dil secimi: EN / ES / DE. Metinler sabit sozlukten gelir; secim hatirlanir, ilk ziyarette telefon/tarayici diline gore otomatik secilir.
-  const I18N = {"en": {"nav_sanatci": "Artist", "nav_galeri": "Tattoos", "nav_cta": "Book Now", "hero_h1": "No copies.<br>No generic designs.<br>No shortcuts.", "hero_sub": "With over 13 years of experience, YASR creates custom tattoos built around individuality, detail, and impact. From complex cover-ups to large-scale original pieces, every tattoo is designed to be unmistakably yours.", "hero_tagline": "NOT JUST A TATTOO. A SIGNATURE.", "hero_btn2": "View Tattoos", "sanatci_title": "The Artist", "bio1": "YASR is a tattoo artist with over 13 years of experience, known for bold custom work, large-scale compositions, realism, color, and complex cover-ups.", "bio2": "For him, tattooing is not about copying an image onto skin. Every piece is designed around the person, their body, their story, and their energy. His approach combines strong composition, detail, contrast, and originality to create tattoos that are immediately recognizable.", "bio3": "After building his career in Turkey and continuing his journey across the United States, YASR has developed a style shaped by years of experience, constant evolution, and one simple rule: never stop creating.", "bio4": "EVERY PROJECT IS PERSONAL. EVERY TATTOO IS CUSTOM. EVERY PIECE CARRIES A SIGNATURE.", "cred_l1": "STYLE", "cred_l2": "BASED IN", "cred_l3": "EXPERIENCE", "cred_l4": "STYLE", "cred_v1": "Custom Tattoos &bull; Cover-Up &bull; Realism &bull; Color &bull; Black &amp; Grey", "cred_v2": "North Carolina, USA", "cred_v3": "13+ Years", "cred_v4": "Bold &bull; Detailed &bull; Custom &bull; Recognizable", "gallery_title": "Tattoos", "contact_kicker": "CONTACT", "contact_title": "Book<br>Appointment", "lbl_studio": "Studio", "lbl_hours": "Working Hours", "lbl_email": "Email", "f_name_l": "Full Name", "f_name_ph": "Your full name", "f_phone_l": "Phone", "f_email_l": "Email", "f_msg_l": "Your Tattoo Idea", "f_msg_ph": "Style, size, body placement, and any references...", "form_note": "Your appointment request will be sent directly to our team.", "form_btn": "Send Appointment Request", "form_photo": "Want to include a reference photo? Email it to <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. All rights reserved.", "msg_fast": "Please take a moment to fill out the form before sending.", "msg_sending": "Sending...", "msg_sent": "Sent", "msg_ok": "Your request has been received. We will get back to you shortly.", "msg_err": "Something went wrong. Please try again or reach out via Instagram.", "footer_privacy": "Privacy Policy", "form_privacy": "By sending this form, you agree to our <a href=\"/privacy.html\">Privacy Policy</a>."}, "es": {"nav_sanatci": "Artista", "nav_galeri": "Tatuajes", "nav_cta": "Reservar", "hero_h1": "Sin copias.<br>Sin diseños genéricos.<br>Sin atajos.", "hero_sub": "Con más de 13 años de experiencia, YASR crea tatuajes personalizados basados en la individualidad, el detalle y el impacto. Desde cover-ups complejos hasta grandes piezas originales, cada tatuaje está diseñado para ser inconfundiblemente tuyo.", "hero_tagline": "NO ES SOLO UN TATUAJE. ES UNA FIRMA.", "hero_btn2": "Ver tatuajes", "sanatci_title": "El artista", "bio1": "YASR es un tatuador con más de 13 años de experiencia, conocido por sus trabajos personalizados y atrevidos, composiciones de gran formato, realismo, color y cover-ups complejos.", "bio2": "Para él, tatuar no es copiar una imagen sobre la piel. Cada pieza se diseña en torno a la persona, su cuerpo, su historia y su energía. Su enfoque combina una composición sólida, detalle, contraste y originalidad para crear tatuajes que se reconocen al instante.", "bio3": "Tras construir su carrera en Turquía y continuar su camino por Estados Unidos, YASR ha desarrollado un estilo forjado por años de experiencia, evolución constante y una regla simple: nunca dejar de crear.", "bio4": "CADA PROYECTO ES PERSONAL. CADA TATUAJE ES ÚNICO. CADA PIEZA LLEVA UNA FIRMA.", "cred_l1": "ESTILO", "cred_l2": "UBICACIÓN", "cred_l3": "EXPERIENCIA", "cred_l4": "ESTILO", "cred_v1": "Tatuajes personalizados &bull; Cover-up &bull; Realismo &bull; Color &bull; Black &amp; Grey", "cred_v2": "Carolina del Norte, EE. UU.", "cred_v3": "Más de 13 años", "cred_v4": "Audaz &bull; Detallado &bull; Personalizado &bull; Reconocible", "gallery_title": "Tatuajes", "contact_kicker": "CONTACTO", "contact_title": "Reserva<br>tu cita", "lbl_studio": "Estudio", "lbl_hours": "Horario", "lbl_email": "Correo", "f_name_l": "Nombre completo", "f_name_ph": "Tu nombre completo", "f_phone_l": "Teléfono", "f_email_l": "Correo electrónico", "f_msg_l": "Tu idea de tatuaje", "f_msg_ph": "Estilo, tamaño, zona del cuerpo y cualquier referencia...", "form_note": "Tu solicitud de cita se enviará directamente a nuestro equipo.", "form_btn": "Enviar solicitud de cita", "form_photo": "¿Quieres incluir una foto de referencia? Envíala a <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. Todos los derechos reservados.", "msg_fast": "Tómate un momento para completar el formulario antes de enviarlo.", "msg_sending": "Enviando...", "msg_sent": "Enviado", "msg_ok": "Hemos recibido tu solicitud. Te responderemos pronto.", "msg_err": "Algo salió mal. Inténtalo de nuevo o escríbenos por Instagram.", "footer_privacy": "Política de privacidad", "form_privacy": "Al enviar este formulario, aceptas nuestra <a href=\"/privacy.html\">Política de privacidad</a>."}, "de": {"nav_sanatci": "Künstler", "nav_galeri": "Tattoos", "nav_cta": "Buchen", "hero_h1": "Keine Kopien.<br>Kein Standard.<br>Kein Pfusch.", "hero_sub": "Mit über 13 Jahren Erfahrung gestaltet YASR individuelle Tattoos, die auf Persönlichkeit, Details und Wirkung setzen. Von komplexen Cover-ups bis zu großflächigen Originalarbeiten – jedes Tattoo wird so gestaltet, dass es unverwechselbar deins ist.", "hero_tagline": "NICHT NUR EIN TATTOO. EINE HANDSCHRIFT.", "hero_btn2": "Tattoos ansehen", "sanatci_title": "Der Künstler", "bio1": "YASR ist ein Tätowierer mit über 13 Jahren Erfahrung, bekannt für ausdrucksstarke individuelle Arbeiten, großflächige Kompositionen, Realismus, Farbe und komplexe Cover-ups.", "bio2": "Für ihn bedeutet Tätowieren nicht, ein Bild auf die Haut zu kopieren. Jedes Motiv wird rund um den Menschen gestaltet – seinen Körper, seine Geschichte, seine Energie. Sein Ansatz verbindet starke Komposition, Details, Kontrast und Originalität zu Tattoos, die man sofort wiedererkennt.", "bio3": "Nachdem er seine Karriere in der Türkei aufgebaut und seinen Weg in den USA fortgesetzt hat, hat YASR einen Stil entwickelt, der von jahrelanger Erfahrung, ständiger Weiterentwicklung und einer einfachen Regel geprägt ist: niemals aufhören zu erschaffen.", "bio4": "JEDES PROJEKT IST PERSÖNLICH. JEDES TATTOO IST EINZIGARTIG. JEDES STÜCK TRÄGT EINE HANDSCHRIFT.", "cred_l1": "STIL", "cred_l2": "STANDORT", "cred_l3": "ERFAHRUNG", "cred_l4": "STIL", "cred_v1": "Individuelle Tattoos &bull; Cover-up &bull; Realismus &bull; Farbe &bull; Black &amp; Grey", "cred_v2": "North Carolina, USA", "cred_v3": "Über 13 Jahre", "cred_v4": "Ausdrucksstark &bull; Detailliert &bull; Individuell &bull; Unverwechselbar", "gallery_title": "Tattoos", "contact_kicker": "KONTAKT", "contact_title": "Termin<br>buchen", "lbl_studio": "Studio", "lbl_hours": "Öffnungszeiten", "lbl_email": "E-Mail", "f_name_l": "Vollständiger Name", "f_name_ph": "Dein vollständiger Name", "f_phone_l": "Telefon", "f_email_l": "E-Mail", "f_msg_l": "Deine Tattoo-Idee", "f_msg_ph": "Stil, Größe, Körperstelle und eventuelle Referenzen...", "form_note": "Deine Terminanfrage wird direkt an unser Team gesendet.", "form_btn": "Terminanfrage senden", "form_photo": "Möchtest du ein Referenzfoto mitschicken? Sende es an <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. Alle Rechte vorbehalten.", "msg_fast": "Bitte nimm dir einen Moment Zeit, das Formular auszufüllen, bevor du es absendest.", "msg_sending": "Wird gesendet...", "msg_sent": "Gesendet", "msg_ok": "Deine Anfrage ist eingegangen. Wir melden uns in Kürze bei dir.", "msg_err": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder schreib uns auf Instagram.", "footer_privacy": "Datenschutz", "form_privacy": "Mit dem Absenden dieses Formulars stimmst du unserer <a href=\"/privacy.html\">Datenschutzerklärung</a> zu."}};
+  const I18N = {"en": {"nav_sanatci": "Artist", "nav_galeri": "Tattoos", "nav_cta": "Book Now", "hero_h1": "No copies.<br>No generic designs.<br>No shortcuts.", "hero_sub": "With over 13 years of experience, YASR creates custom tattoos built around individuality, detail, and impact. From complex cover-ups to large-scale original pieces, every tattoo is designed to be unmistakably yours.", "hero_tagline": "NOT JUST A TATTOO. A SIGNATURE.", "hero_btn2": "View Tattoos", "sanatci_title": "The Artist", "bio1": "YASR is a tattoo artist with over 13 years of experience, known for bold custom work, large-scale compositions, realism, color, and complex cover-ups.", "bio2": "For him, tattooing is not about copying an image onto skin. Every piece is designed around the person, their body, their story, and their energy. His approach combines strong composition, detail, contrast, and originality to create tattoos that are immediately recognizable.", "bio3": "After building his career in Turkey and continuing his journey across the United States, YASR has developed a style shaped by years of experience, constant evolution, and one simple rule: never stop creating.", "bio4": "EVERY PROJECT IS PERSONAL. EVERY TATTOO IS CUSTOM. EVERY PIECE CARRIES A SIGNATURE.", "cred_l1": "STYLE", "cred_l2": "BASED IN", "cred_l3": "EXPERIENCE", "cred_l4": "STYLE", "cred_v1": "Custom Tattoos &bull; Cover-Up &bull; Realism &bull; Color &bull; Black &amp; Grey", "cred_v2": "North Carolina, USA", "cred_v3": "13+ Years", "cred_v4": "Bold &bull; Detailed &bull; Custom &bull; Recognizable", "gallery_title": "Tattoos", "contact_kicker": "CONTACT", "contact_title": "Book<br>Appointment", "lbl_studio": "Studio", "lbl_hours": "Working Hours", "lbl_email": "Email", "f_name_l": "Full Name", "f_name_ph": "Your full name", "f_phone_l": "Phone", "f_email_l": "Email", "f_msg_l": "Your Tattoo Idea", "f_msg_ph": "Style, size, body placement, and any references...", "form_note": "Your appointment request will be sent directly to our team.", "form_btn": "Send Appointment Request", "form_photo": "Want to include a reference photo? Email it to <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. All rights reserved.", "msg_fast": "Please take a moment to fill out the form before sending.", "msg_sending": "Sending...", "msg_sent": "Sent", "msg_ok": "Your request has been received. We will get back to you shortly.", "msg_err": "Something went wrong. Please try again or reach out via Instagram.", "footer_privacy": "Privacy Policy", "form_privacy": "By sending this form, you agree to our <a href=\"/privacy.html\">Privacy Policy</a>.", "cu_title": "Cover Up", "cu_before": "Before", "cu_after": "After", "cu_hint_m": "Move your mouse over the photo to compare", "cu_hint_t": "Drag the slider to compare", "chip_custom": "Custom", "chip_cover": "Cover-Up", "chip_realism": "Realism", "chip_color": "Color", "chip_bg": "Black & Grey", "open_now": "Open now", "closed_now": "Closed · Opens at 11:00"}, "es": {"nav_sanatci": "Artista", "nav_galeri": "Tatuajes", "nav_cta": "Reservar", "hero_h1": "Sin copias.<br>Sin diseños genéricos.<br>Sin atajos.", "hero_sub": "Con más de 13 años de experiencia, YASR crea tatuajes personalizados basados en la individualidad, el detalle y el impacto. Desde cover-ups complejos hasta grandes piezas originales, cada tatuaje está diseñado para ser inconfundiblemente tuyo.", "hero_tagline": "NO ES SOLO UN TATUAJE. ES UNA FIRMA.", "hero_btn2": "Ver tatuajes", "sanatci_title": "El artista", "bio1": "YASR es un tatuador con más de 13 años de experiencia, conocido por sus trabajos personalizados y atrevidos, composiciones de gran formato, realismo, color y cover-ups complejos.", "bio2": "Para él, tatuar no es copiar una imagen sobre la piel. Cada pieza se diseña en torno a la persona, su cuerpo, su historia y su energía. Su enfoque combina una composición sólida, detalle, contraste y originalidad para crear tatuajes que se reconocen al instante.", "bio3": "Tras construir su carrera en Turquía y continuar su camino por Estados Unidos, YASR ha desarrollado un estilo forjado por años de experiencia, evolución constante y una regla simple: nunca dejar de crear.", "bio4": "CADA PROYECTO ES PERSONAL. CADA TATUAJE ES ÚNICO. CADA PIEZA LLEVA UNA FIRMA.", "cred_l1": "ESTILO", "cred_l2": "UBICACIÓN", "cred_l3": "EXPERIENCIA", "cred_l4": "ESTILO", "cred_v1": "Tatuajes personalizados &bull; Cover-up &bull; Realismo &bull; Color &bull; Black &amp; Grey", "cred_v2": "Carolina del Norte, EE. UU.", "cred_v3": "Más de 13 años", "cred_v4": "Audaz &bull; Detallado &bull; Personalizado &bull; Reconocible", "gallery_title": "Tatuajes", "contact_kicker": "CONTACTO", "contact_title": "Reserva<br>tu cita", "lbl_studio": "Estudio", "lbl_hours": "Horario", "lbl_email": "Correo", "f_name_l": "Nombre completo", "f_name_ph": "Tu nombre completo", "f_phone_l": "Teléfono", "f_email_l": "Correo electrónico", "f_msg_l": "Tu idea de tatuaje", "f_msg_ph": "Estilo, tamaño, zona del cuerpo y cualquier referencia...", "form_note": "Tu solicitud de cita se enviará directamente a nuestro equipo.", "form_btn": "Enviar solicitud de cita", "form_photo": "¿Quieres incluir una foto de referencia? Envíala a <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. Todos los derechos reservados.", "msg_fast": "Tómate un momento para completar el formulario antes de enviarlo.", "msg_sending": "Enviando...", "msg_sent": "Enviado", "msg_ok": "Hemos recibido tu solicitud. Te responderemos pronto.", "msg_err": "Algo salió mal. Inténtalo de nuevo o escríbenos por Instagram.", "footer_privacy": "Política de privacidad", "form_privacy": "Al enviar este formulario, aceptas nuestra <a href=\"/privacy.html\">Política de privacidad</a>.", "cu_title": "Cover Up", "cu_before": "Antes", "cu_after": "Después", "cu_hint_m": "Pasa el ratón sobre la foto para comparar", "cu_hint_t": "Desliza para comparar", "chip_custom": "Personalizado", "chip_cover": "Cover-Up", "chip_realism": "Realismo", "chip_color": "Color", "chip_bg": "Negro y gris", "open_now": "Abierto ahora", "closed_now": "Cerrado · Abre a las 11:00"}, "de": {"nav_sanatci": "Künstler", "nav_galeri": "Tattoos", "nav_cta": "Buchen", "hero_h1": "Keine Kopien.<br>Kein Standard.<br>Kein Pfusch.", "hero_sub": "Mit über 13 Jahren Erfahrung gestaltet YASR individuelle Tattoos, die auf Persönlichkeit, Details und Wirkung setzen. Von komplexen Cover-ups bis zu großflächigen Originalarbeiten – jedes Tattoo wird so gestaltet, dass es unverwechselbar deins ist.", "hero_tagline": "NICHT NUR EIN TATTOO. EINE HANDSCHRIFT.", "hero_btn2": "Tattoos ansehen", "sanatci_title": "Der Künstler", "bio1": "YASR ist ein Tätowierer mit über 13 Jahren Erfahrung, bekannt für ausdrucksstarke individuelle Arbeiten, großflächige Kompositionen, Realismus, Farbe und komplexe Cover-ups.", "bio2": "Für ihn bedeutet Tätowieren nicht, ein Bild auf die Haut zu kopieren. Jedes Motiv wird rund um den Menschen gestaltet – seinen Körper, seine Geschichte, seine Energie. Sein Ansatz verbindet starke Komposition, Details, Kontrast und Originalität zu Tattoos, die man sofort wiedererkennt.", "bio3": "Nachdem er seine Karriere in der Türkei aufgebaut und seinen Weg in den USA fortgesetzt hat, hat YASR einen Stil entwickelt, der von jahrelanger Erfahrung, ständiger Weiterentwicklung und einer einfachen Regel geprägt ist: niemals aufhören zu erschaffen.", "bio4": "JEDES PROJEKT IST PERSÖNLICH. JEDES TATTOO IST EINZIGARTIG. JEDES STÜCK TRÄGT EINE HANDSCHRIFT.", "cred_l1": "STIL", "cred_l2": "STANDORT", "cred_l3": "ERFAHRUNG", "cred_l4": "STIL", "cred_v1": "Individuelle Tattoos &bull; Cover-up &bull; Realismus &bull; Farbe &bull; Black &amp; Grey", "cred_v2": "North Carolina, USA", "cred_v3": "Über 13 Jahre", "cred_v4": "Ausdrucksstark &bull; Detailliert &bull; Individuell &bull; Unverwechselbar", "gallery_title": "Tattoos", "contact_kicker": "KONTAKT", "contact_title": "Termin<br>buchen", "lbl_studio": "Studio", "lbl_hours": "Öffnungszeiten", "lbl_email": "E-Mail", "f_name_l": "Vollständiger Name", "f_name_ph": "Dein vollständiger Name", "f_phone_l": "Telefon", "f_email_l": "E-Mail", "f_msg_l": "Deine Tattoo-Idee", "f_msg_ph": "Stil, Größe, Körperstelle und eventuelle Referenzen...", "form_note": "Deine Terminanfrage wird direkt an unser Team gesendet.", "form_btn": "Terminanfrage senden", "form_photo": "Möchtest du ein Referenzfoto mitschicken? Sende es an <a href=\"mailto:yasr.tatweb@gmail.com\">yasr.tatweb@gmail.com</a>", "footer_rights": "&copy; 2026 YASR Tattoo. Alle Rechte vorbehalten.", "msg_fast": "Bitte nimm dir einen Moment Zeit, das Formular auszufüllen, bevor du es absendest.", "msg_sending": "Wird gesendet...", "msg_sent": "Gesendet", "msg_ok": "Deine Anfrage ist eingegangen. Wir melden uns in Kürze bei dir.", "msg_err": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder schreib uns auf Instagram.", "footer_privacy": "Datenschutz", "form_privacy": "Mit dem Absenden dieses Formulars stimmst du unserer <a href=\"/privacy.html\">Datenschutzerklärung</a> zu.", "cu_title": "Cover Up", "cu_before": "Vorher", "cu_after": "Nachher", "cu_hint_m": "Fahre mit der Maus über das Foto, um zu vergleichen", "cu_hint_t": "Zum Vergleichen den Regler ziehen", "chip_custom": "Individuell", "chip_cover": "Cover-Up", "chip_realism": "Realismus", "chip_color": "Farbe", "chip_bg": "Black & Grey", "open_now": "Jetzt geöffnet", "closed_now": "Geschlossen · Öffnet um 11:00"}};
   const LANG_NAMES = {en:'English', es:'Español', de:'Deutsch'};
   let currentLang = 'en';
   function t(key){ return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || ''; }
@@ -962,6 +1096,237 @@
       closeSw();
     }));
   })();
+</script>
+<script>
+/* COVER UP surgu + baslik yazi animasyonu (22 Kasim 2026) */
+(function(){
+  var card = document.getElementById('cuCard'); if(!card) return;
+  var inn = card.querySelector('.cu-in'), bf = card.querySelector('.cu-before'), hd = card.querySelector('.cu-hd');
+  var tagB = card.querySelector('.cu-tag.b'), tagA = card.querySelector('.cu-tag.a');
+  var isOn = false, cur = 0, backTimer = 0, animTimer = 0, dragging = false, lastX = null;
+  function setX(x, anim){
+    var w = inn.clientWidth; x = Math.max(0, Math.min(w, x)); cur = x;
+    bf.classList.toggle('anim', anim); hd.classList.toggle('anim', anim);
+    bf.style.setProperty('--sx', x + 'px'); hd.style.left = x + 'px';
+    var pct = w ? x / w : 0;
+    tagB.style.opacity = pct > .28 ? 1 : 0; tagA.style.opacity = pct < .72 ? 1 : 0;
+    card.setAttribute('aria-valuenow', Math.round(pct * 100));
+    if(anim){ clearTimeout(animTimer); animTimer = setTimeout(function(){ bf.classList.remove('anim'); hd.classList.remove('anim'); if(isOn && lastX !== null) setX(lastX, false); }, 460); }
+  }
+  function localX(e){ lastX = e.clientX - inn.getBoundingClientRect().left; return lastX; }
+  function on(e, anim){ clearTimeout(backTimer); if(!isOn){ isOn = true; card.classList.add('on'); } if(e) setX(localX(e), anim !== false); }
+  function off(delay){ clearTimeout(backTimer); backTimer = setTimeout(function(){ isOn = false; lastX = null; card.classList.remove('on'); setX(0, true); }, delay || 0); }
+  card.addEventListener('pointerenter', function(e){ if(e.pointerType === 'mouse') on(e, true); });
+  card.addEventListener('pointermove', function(e){
+    if(e.pointerType === 'mouse'){ if(!isOn) on(e, true); else { var x = localX(e); if(!bf.classList.contains('anim')) setX(x, false); } }
+    else if(dragging) setX(localX(e), false);
+  });
+  card.addEventListener('pointerleave', function(e){ if(e.pointerType === 'mouse') off(0); });
+  card.addEventListener('pointerdown', function(e){ if(e.pointerType === 'mouse') return; dragging = true; on(e, true); });
+  ['pointerup','pointercancel'].forEach(function(t){ card.addEventListener(t, function(e){ if(e.pointerType === 'mouse') return; dragging = false; off(1400); }); });
+  card.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+  card.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){ e.preventDefault(); on(null); setX(cur + (e.key === 'ArrowRight' ? 1 : -1) * inn.clientWidth / 10, true); }
+  });
+  card.addEventListener('blur', function(){ off(0); });
+  window.addEventListener('resize', function(){ setX(isOn ? cur : 0, false); });
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ card.classList.toggle('cu-off', !es[0].isIntersecting); }).observe(card); }
+
+  /* Baslik: yay fizikli harf animasyonu, ekrana girince bir kez */
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(el){
+    var parts=el.innerHTML.split(/<br\s*\/?>/i).map(function(s){ var d=document.createElement('div'); d.innerHTML=s; return d.textContent.trim(); });
+    el.innerHTML=''; el.classList.remove('ch-go'); var n=0;
+    parts.forEach(function(L,li){ var ln=document.createElement('span'); ln.style.cssText='display:block;overflow:hidden;padding-bottom:.08em;';
+      L.split(/\s+/).forEach(function(w,wi,arr){ var wd=document.createElement('span'); wd.style.cssText='display:inline-block;white-space:nowrap;';
+        for(var c of w){ var u=document.createElement('span'); u.className='ch-in'; u.textContent=c; u.style.setProperty('--cd',(n++*38)+'ms'); wd.appendChild(u); }
+        ln.appendChild(wd); if(wi<arr.length-1) ln.appendChild(document.createTextNode(' ')); });
+      if(parts.length>1) el.appendChild(ln); else { while(ln.firstChild) el.appendChild(ln.firstChild); } });
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('ch-go'); }); });
+  }
+
+  /* Ipucu yazisi: daktilo efekti (harf harf yazilir, bekler, silinir) */
+  (function(){
+    var box = document.querySelector('#cover-up .cu-hint'); if(!box) return;
+    var out = box.querySelector('.cu-type');
+    var touch = window.matchMedia('(hover: none), (pointer: coarse)');
+    function src(){ var el = box.querySelector(touch.matches ? '.cu-src.t' : '.cu-src.m'); return el ? el.textContent.trim() : ''; }
+    if(reduce){ out.textContent = src(); return; }
+    var i = 0, dir = 1, txt = '', visible = false, timer = 0;
+    function tick(){
+      if(!visible){ timer = 0; return; }
+      if(i === 0 && dir === 1) txt = src();
+      out.textContent = txt.slice(0, i);
+      var d = 55;
+      if(dir === 1){ if(i < txt.length) i++; else { dir = -1; d = 2200; } }
+      else { if(i > 0){ i--; d = 22; } else { dir = 1; d = 600; } }
+      timer = setTimeout(tick, d);
+    }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ visible = es[0].isIntersecting; if(visible && !timer) tick(); }).observe(box);
+    } else { visible = true; tick(); }
+  })();
+  var title = document.querySelector('#cover-up [data-text-fx]');
+  if(title && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ play(e.target); io.unobserve(e.target); } }); }, { threshold: .4 });
+    io.observe(title);
+  }
+})();
+</script>
+<script>
+/* TATTOOS COVERFLOW: ortadaki video oynar; elle (parmak/fare) surukleme, oklar, 3 sn'de bir otomatik kayma */
+(function(){
+  var root=document.getElementById('cflow'); if(!root) return;
+  var items=[].slice.call(root.querySelectorAll('.cf-it')), n=items.length, act=0, pos=0, timer=0, hold=false, inView=false;
+  var dotsWrap=document.getElementById('carDots'), dots=[];
+  if(dotsWrap){ dotsWrap.innerHTML=''; dots=items.map(function(_,i){ var b=document.createElement('button'); b.type='button'; b.tabIndex=-1; b.addEventListener('click',function(){ go(i,true); }); dotsWrap.appendChild(b); return b; }); }
+  function spacing(){
+    var w=items[0].offsetWidth||260; if(innerWidth<=860) return w*.52;
+    var nav=root.querySelector('.cf-next'), half=root.clientWidth/2, edge=nav ? (root.clientWidth-nav.offsetLeft) + 24 : 90;
+    var f=1300/(1300+3*130);
+    return Math.max(w*.55, (half - edge - w*.26) / (3*f));
+  }
+  function lbOpen(){ var lb=document.getElementById('videoLightbox'); return lb && lb.classList.contains('open'); }
+  function wrap(o){ while(o>n/2) o-=n; while(o<-n/2) o+=n; return o; }
+  var settled=true;
+  function draw(p){
+    if(p===undefined) p=pos; var sp=spacing(), mob=innerWidth<=860, center=((Math.round(p)%n)+n)%n;
+    items.forEach(function(it,i){
+      var o=wrap(i-p), a=Math.abs(o), k=Math.min(1,a);
+      var z = a<1 ? 70*(1-a) - a*130 : -a*130;
+      var rot = o===0 ? 0 : (o<0?1:-1)*48*k;
+      it.style.transform='translate(-50%,-50%) translateX('+(o*sp).toFixed(1)+'px) translateZ('+z.toFixed(1)+'px) rotateY('+rot.toFixed(1)+'deg)';
+      var lim = mob ? 1.6 : 3.4;
+      it.style.zIndex=100-Math.round(a*10); it.style.opacity = a>lim ? 0 : 1; it.style.pointerEvents = a>lim ? 'none' : '';
+      it.style.visibility = a > (mob ? 2.5 : 3.5) ? 'hidden' : '';
+      it.style.setProperty('--dim', a<1 ? (a*.41).toFixed(2) : Math.min(.68,.28+a*.13).toFixed(2));
+      var isC = i===center; it.classList.toggle('act', isC && settled); it.setAttribute('aria-hidden', isC?'false':'true');
+      var v=it.querySelector('video');
+      if(isC && settled && inView && !lbOpen()){ visibleVideos.add(v); lazyLoadVideo(v,true); if(v.paused) v.play().catch(function(){}); }
+      else { visibleVideos.delete(v); if(!v.paused) v.pause(); }
+    });
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===center); });
+  }
+  function go(i,user){ act=((i%n)+n)%n; pos=act; settled=true; draw(); if(user) restart(); }
+  var scrollingUntil=0; addEventListener('scroll',function(){ scrollingUntil=Date.now()+400; },{passive:true});
+  function restart(){ clearInterval(timer); timer=setInterval(function(){ if(!hold && !dragging && inView && !lbOpen() && !document.hidden && Date.now()>scrollingUntil) go(act+1); }, 3000); }
+  root.querySelector('.cf-prev').addEventListener('click',function(){ go(act-1,true); });
+  root.querySelector('.cf-next').addEventListener('click',function(){ go(act+1,true); });
+
+  /* Elle surukleme: parmak ya da fare ile kartlar parmagi takip eder, birakinca en yakin karta oturur */
+  var down=false, dragging=false, sx=0, sy=0, startPos=0, lastX=0, lastT=0, vel=0, dragEnd=0, pid=null;
+  root.addEventListener('pointerdown',function(e){
+    if(e.target.closest('.cf-nav') || (e.pointerType==='mouse' && e.button!==0)) return;
+    down=true; dragging=false; sx=lastX=e.clientX; sy=e.clientY; lastT=performance.now(); vel=0; startPos=pos; pid=e.pointerId; hold=true;
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!down || e.pointerId!==pid) return;
+    var dx=e.clientX-sx, dy=e.clientY-sy;
+    if(!dragging){ if(Math.abs(dx)>8 && Math.abs(dx)>Math.abs(dy)){ dragging=true; settled=false; root.classList.add('cf-drag'); try{ root.setPointerCapture(pid); }catch(_){} } else if(Math.abs(dy)>10){ down=false; if(e.pointerType!=='mouse') hold=false; return; } else return; }
+    var now=performance.now(), sp=spacing();
+    vel = 0.8*vel + 0.2*((e.clientX-lastX)/Math.max(1,now-lastT)); lastX=e.clientX; lastT=now;
+    pos = startPos - dx/sp; draw(pos);
+    if(e.cancelable) e.preventDefault();
+  },{passive:false});
+  function endDrag(e){
+    if(!down || (e && e.pointerId!==pid)) return; down=false;
+    if(e && e.pointerType!=='mouse') hold=false;
+    if(!dragging) return;
+    dragging=false; dragEnd=Date.now(); root.classList.remove('cf-drag');
+    var sp=spacing(), base=Math.round(startPos), delta=pos-startPos, target;
+    if(Math.abs(delta)<0.12 && Math.abs(vel)<0.3) target=base;
+    else if(innerWidth<=860){ target = base + (delta>0?1:-1) * Math.max(1, Math.round(Math.abs(delta))); }  // telefonda her kaydirma en az 1 kart
+    else { target=Math.round(pos - vel*100/sp); if(target===base) target = base + (delta>0?1:-1); }
+    if(target>base+2) target=base+2; if(target<base-2) target=base-2;
+    go(target,true);
+  }
+  window.addEventListener('pointerup',endDrag); window.addEventListener('pointercancel',endDrag);
+  root.addEventListener('dragstart',function(e){ e.preventDefault(); });
+
+  // yandaki karta tiklayinca ortaya gelsin; ortadakine tiklayinca buyuk pencere acilsin; surukleme sonrasi tiklama sayilmaz
+  root.addEventListener('click',function(e){ var it=e.target.closest('.cf-it'); if(!it) return;
+    if(Date.now()-dragEnd<350){ e.stopPropagation(); e.preventDefault(); return; }
+    if(!it.classList.contains('act')){ e.stopPropagation(); e.preventDefault(); go(items.indexOf(it),true); } }, true);
+
+  root.addEventListener('mouseenter',function(){ hold=true; }); root.addEventListener('mouseleave',function(){ if(!down) hold=false; });
+  root.setAttribute('tabindex','0');
+  root.addEventListener('keydown',function(e){ if(e.key==='ArrowRight'){ go(act+1,true); } else if(e.key==='ArrowLeft'){ go(act-1,true); } });
+  new IntersectionObserver(function(es){ var was=inView; inView=es[0].isIntersecting; draw(); if(inView && !was) restart(); },{threshold:.35}).observe(root);
+  var lbEl=document.getElementById('videoLightbox'); if(lbEl) new MutationObserver(function(){ draw(); }).observe(lbEl,{attributes:true,attributeFilter:['class']});
+  addEventListener('resize',function(){ draw(); });
+  draw(); restart();
+})();
+</script>
+<script>
+/* RANDEVU: canli acik/kapali (Kuzey Karolina saati), hizli secim etiketleri, kenar isigi ekran disinda durur */
+(function(){
+  var sec=document.getElementById('iletisim'); if(!sec) return;
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ sec.classList.toggle('off-screen',!es[0].isIntersecting); }).observe(sec);
+  // Calisma saatleri: her gun 11:00-20:00 (ABD Dogu saati). Kapali gun olursa CLOSED_DAYS'e ekle (0=Pazar ... 6=Cumartesi)
+  var OPEN_H=11, CLOSE_H=20, CLOSED_DAYS=[];
+  var badge=document.getElementById('openBadge');
+  function nowNC(){ var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hour12:false,weekday:'short'}).formatToParts(new Date()), o={};
+    p.forEach(function(x){ o[x.type]=x.value; }); return { h:(+o.hour)%24, d:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday) }; }
+  function upd(){ if(!badge) return; var n=nowNC(), open=CLOSED_DAYS.indexOf(n.d)<0 && n.h>=OPEN_H && n.h<CLOSE_H;
+    badge.className='open-badge '+(open?'op':'cl'); badge.querySelector('span').textContent=t(open?'open_now':'closed_now'); }
+  upd(); setInterval(upd,60000);
+  if(typeof applyLang==='function'){ var _ap=applyLang; window.applyLang=function(l){ _ap(l); upd(); }; }
+  // Hizli secim: mesaj kutusuna "Style: ..." satiri (mail Ingilizce gelsin diye hep Ingilizce yazilir)
+  var ta=document.getElementById('f-message'), picks=[];
+  [].forEach.call(document.querySelectorAll('#ideaChips button'),function(b){
+    b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',function(){ var v=b.getAttribute('data-v'), i=picks.indexOf(v);
+      if(i>=0) picks.splice(i,1); else picks.push(v); var on=i<0; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on?'true':'false');
+      var rest=ta.value.replace(/^Style: [^\n]*\n?/,''); ta.value=(picks.length?'Style: '+picks.join(', ')+'\n':'')+rest; });
+  });
+  var form=document.getElementById('bookingForm');
+  if(form) form.addEventListener('reset',function(){ picks=[]; [].forEach.call(document.querySelectorAll('#ideaChips button'),function(b){ b.classList.remove('on'); b.setAttribute('aria-pressed','false'); }); });
+})();
+</script>
+<script>
+/* KAYDIRINCA CANLANMA (23 Kasim 2026): basliklar harf harf, metinler kayarak, gorseller perde gibi */
+(function(){
+  // eski .reveal efektini devreden cikar (yerine bu sistem geliyor)
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.remove('reveal','in','leave-up'); });
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function mark(sel, kind, step, base){ document.querySelectorAll(sel).forEach(function(el,i){ el.classList.add('sx',kind); el.style.setProperty('--d',((base||0)+i*(step||0))+'ms'); }); }
+  // Sanatci
+  mark('#sanatci .about-grid > div:not(.about-media) > p','left',120,150);
+  mark('#sanatci .credentials li','up',110,300);
+  var lite=matchMedia('(max-width:860px), (pointer:coarse)').matches; // telefonda daha hafif hareketler
+  mark('#sanatci .signature', lite ? 'left' : 'sign', 0, 500);
+  // Galeri kartlari
+  // Cover Up
+  // Randevu
+  mark('#iletisim .contact-kicker, #iletisim .info-stack > div','up',90,250);
+  mark('#iletisim .field label, #iletisim .form-note','up',70,300);
+  mark('footer > *','up',120);
+  // en alttaki footer ekranin son %6'sina hic giremeyebilir: ayri, payi olmayan gozlemci
+  // kirpilmis (clip) ogeler kendileri gorunmez sayildigi icin ebeveynleri izlenir
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ (e.target._sxT||e.target).classList.add('on'); io.unobserve(e.target); } }); },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  var ioF=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); ioF.unobserve(e.target); } }); },{threshold:0});
+  document.querySelectorAll('.sx').forEach(function(el){
+    if(el.classList.contains('clip')||el.classList.contains('sign')){ var w=document.createElement('span'); w.style.cssText='position:absolute;inset:0;pointer-events:none;';
+      var host=el.parentNode; if(getComputedStyle(host).position==='static') host.style.position='relative';
+      w._sxT=el; host.appendChild(w); io.observe(w); }
+    else if(el.closest('footer')) ioF.observe(el); else io.observe(el); });
+  // Basliklar: yay fizikli harf animasyonu (Cover Up zaten kendi animasyonuna sahip)
+  function spring(el){
+    var parts=el.innerHTML.split(/<br\s*\/?>/i).map(function(s){ var d=document.createElement('div'); d.innerHTML=s; return d.textContent.trim(); });
+    el.innerHTML=''; el.classList.remove('ch-go'); var n=0;
+    parts.forEach(function(L,li){ var ln=document.createElement('span'); ln.style.cssText='display:block;overflow:hidden;padding-bottom:.08em;';
+      L.split(/\s+/).forEach(function(w,wi,arr){ var wd=document.createElement('span'); wd.style.cssText='display:inline-block;white-space:nowrap;';
+        if(lite){ var u=document.createElement('span'); u.className='ch-in'; u.textContent=w; u.style.setProperty('--cd',(n++*90)+'ms'); wd.appendChild(u); }
+        else for(var c of w){ var u=document.createElement('span'); u.className='ch-in'; u.textContent=c; u.style.setProperty('--cd',(n++*38)+'ms'); wd.appendChild(u); }
+        ln.appendChild(wd); if(wi<arr.length-1) ln.appendChild(document.createTextNode(' ')); });
+      if(parts.length>1) el.appendChild(ln); else { while(ln.firstChild) el.appendChild(ln.firstChild); } });
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('ch-go'); }); });
+  }
+  var heads=[].slice.call(document.querySelectorAll('#sanatci h2, #galeri h2, #iletisim h2'));
+  heads.forEach(function(h){ h.style.opacity=0; });
+  var hio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.style.opacity=''; spring(e.target); hio.unobserve(e.target); } }); },{threshold:.5});
+  heads.forEach(function(h){ hio.observe(h); });
+})();
 </script>
 </body>
 </html>
