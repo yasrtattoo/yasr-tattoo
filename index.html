@@ -323,13 +323,17 @@
     display:flex;align-items:center;justify-content:center;
     transition:background .2s ease, border-color .2s ease, transform .2s ease;
   }
-  .lightbox-nav:hover{background:var(--grad);border-color:transparent;}
+  @media(hover:hover){.lightbox-nav:hover{background:var(--grad);border-color:transparent;}}
+  .lightbox-nav,.lightbox-close{z-index:3;}
   .lightbox-prev{left:20px;}
   .lightbox-next{right:20px;}
   @media(max-width:640px){
-    .lightbox-nav{width:40px;height:40px;font-size:15px;}
-    .lightbox-prev{left:8px;}
-    .lightbox-next{right:8px;}
+    /* telefonda oklar videonun ustunde, koyu cam zeminle hep gorunur */
+    .lightbox-nav{width:42px;height:42px;font-size:15px;background:rgba(10,5,16,.55);border-color:rgba(255,255,255,.5);
+      backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 4px 14px rgba(0,0,0,.45);}
+    .lightbox-nav:active{background:var(--grad);border-color:transparent;}
+    .lightbox-prev{left:12px;}
+    .lightbox-next{right:12px;}
   }
 
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(64px, 20vw, 360px);position:relative;}
@@ -1151,7 +1155,7 @@
     var out = box.querySelector('.cu-type');
     var touch = window.matchMedia('(hover: none), (pointer: coarse)');
     function src(){ var el = box.querySelector(touch.matches ? '.cu-src.t' : '.cu-src.m'); return el ? el.textContent.trim() : ''; }
-    if(reduce){ out.textContent = src(); return; }
+    // not: daktilo bir yer degistirme hareketi olmadigi icin 'animasyonlari azalt' ayarinda da calisir
     var i = 0, dir = 1, txt = '', visible = false, timer = 0;
     function tick(){
       if(!visible){ timer = 0; return; }
