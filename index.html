@@ -611,6 +611,18 @@
   #sanatci .about-grid > div:not(.about-media)::before{content:"";position:absolute;inset:-50px -28px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse closest-side,rgba(16,8,38,.55),rgba(16,8,38,.32) 60%,transparent);}
   #galeri h2,#cover-up h2{position:relative;isolation:isolate;}
   #galeri h2::before,#cover-up h2::before{content:"";position:absolute;inset:-26px -28px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse closest-side,rgba(16,8,38,.5),transparent);}
+  /* COVER UP: birden fazla is arasinda gecis */
+  .cu-pick{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px auto 0;}
+  .cu-pick button{-webkit-appearance:none;appearance:none;border:0;padding:0;background:none;cursor:pointer;}
+  .cu-th{position:relative;width:52px;height:52px;border-radius:50%;overflow:hidden;opacity:.55;box-shadow:0 0 0 1px rgba(255,255,255,.25);transition:opacity .25s,transform .25s,box-shadow .25s;}
+  .cu-th img{width:100%;height:100%;object-fit:cover;display:block;}
+  .cu-th.act{opacity:1;transform:scale(1.08);box-shadow:0 0 0 2px #c084fc,0 0 16px rgba(176,38,255,.55);}
+  @media(hover:hover){.cu-th:hover{opacity:.9;}}
+  .cu-pick .cu-ar{width:36px;height:36px;border-radius:50%;color:#f3e8ff;font-size:15px;line-height:36px;background:rgba(18,10,40,.55);box-shadow:0 0 0 1px rgba(192,132,252,.45);transition:background .2s;}
+  @media(hover:hover){.cu-pick .cu-ar:hover{background:rgba(124,58,237,.6);}}
+  .cu-pick button:focus-visible{outline:2px solid #c084fc;outline-offset:3px;}
+  .cu-in img{transition:opacity .28s ease;}
+  .cu-in.swap img{opacity:0;}
   #bgStage .bs-shade{position:absolute;inset:0;background:rgba(12,8,18,.38);opacity:0;}
   .bg-flow{background:transparent!important;}
   #iletisim{background:transparent!important;}
@@ -702,12 +714,19 @@
     <p class="cu-hint"><span class="cu-src m" data-i18n="cu_hint_m">Move your mouse over the photo to compare</span><span class="cu-src t" data-i18n="cu_hint_t">Drag the slider to compare</span><span class="cu-type" aria-hidden="true"></span></p>
     <div class="cu-card" id="cuCard" tabindex="0" role="slider" aria-label="Cover-Up before and after comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
       <div class="cu-in">
-        <img src="cover-after.jpg" alt="Cover-Up tattoo, finished" width="864" height="1080" loading="lazy" decoding="async">
-        <img class="cu-before" src="cover-before.jpg" alt="Old tattoo before the Cover-Up" width="864" height="1080" loading="lazy" decoding="async">
+        <img src="cover-after.jpg" alt="Cover-Up tattoo, finished" width="1080" height="1350" loading="lazy" decoding="async">
+        <img class="cu-before" src="cover-before.jpg" alt="Old tattoo before the Cover-Up" width="1080" height="1350" loading="lazy" decoding="async">
         <span class="cu-hd" aria-hidden="true"><i></i></span>
         <span class="cu-tag b" aria-hidden="true" data-i18n="cu_before">Before</span>
         <span class="cu-tag a" aria-hidden="true" data-i18n="cu_after">After</span>
       </div>
+    </div>
+    <div class="cu-pick" id="cuPick">
+      <button class="cu-ar" type="button" data-step="-1" aria-label="Previous Cover-Up">&#10094;</button>
+      <button class="cu-th act" type="button" data-i="0" aria-label="Cover-Up 1" aria-pressed="true"><img src="cu-t1.jpg" alt="" width="144" height="144" loading="lazy" decoding="async"></button>
+      <button class="cu-th" type="button" data-i="1" aria-label="Cover-Up 2" aria-pressed="false"><img src="cu-t2.jpg" alt="" width="144" height="144" loading="lazy" decoding="async"></button>
+      <button class="cu-th" type="button" data-i="2" aria-label="Cover-Up 3" aria-pressed="false"><img src="cu-t3.jpg" alt="" width="144" height="144" loading="lazy" decoding="async"></button>
+      <button class="cu-ar" type="button" data-step="1" aria-label="Next Cover-Up">&#10095;</button>
     </div>
   </div>
 </section>
@@ -1191,6 +1210,28 @@
   card.addEventListener('blur', function(){ off(0); });
   window.addEventListener('resize', function(){ setX(isOn ? cur : 0, false); });
   if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ card.classList.toggle('cu-off', !es[0].isIntersecting); }).observe(card); }
+  /* Birden fazla Cover Up isi: kucuk resimlerle gecis */
+  (function(){
+    var pick=document.getElementById('cuPick'); if(!pick) return;
+    var imgA=inn.querySelector('img:not(.cu-before)');
+    var sets=[['cover-before.jpg','cover-after.jpg'],['cover2-before.jpg','cover2-after.jpg'],['cover3-before.jpg','cover3-after.jpg']];
+    var idx=0, busy=false, pre=false, ths=pick.querySelectorAll('.cu-th');
+    function preload(){ if(pre) return; pre=true; sets.forEach(function(p){ p.forEach(function(u){ var i=new Image(); i.src=u; }); }); }
+    function show(n){
+      n=(n+sets.length)%sets.length; if(n===idx||busy) return; busy=true; preload();
+      var a=new Image(), b=new Image(), ready=0;
+      function go(){ if(++ready<2) return;
+        inn.classList.add('swap');
+        setTimeout(function(){ imgA.src=sets[n][1]; bf.src=sets[n][0]; off(0);
+          requestAnimationFrame(function(){ inn.classList.remove('swap'); busy=false; }); }, 280);
+      }
+      a.onload=a.onerror=go; b.onload=b.onerror=go; a.src=sets[n][1]; b.src=sets[n][0];
+      idx=n; [].forEach.call(ths,function(t,k){ t.classList.toggle('act',k===n); t.setAttribute('aria-pressed',k===n?'true':'false'); });
+    }
+    pick.addEventListener('click',function(e){ var t=e.target.closest('button'); if(!t) return;
+      if(t.hasAttribute('data-step')) show(idx + +t.getAttribute('data-step')); else show(+t.getAttribute('data-i')); });
+    if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ setTimeout(preload,1200); io.disconnect(); } },{rootMargin:'200px'}); io.observe(card); }
+  })();
 
   /* Baslik: yay fizikli harf animasyonu, ekrana girince bir kez */
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
