@@ -582,9 +582,12 @@
   }
 
   /* ===== TEK SAYFA AKISI: sabit arka plan sahnesi (deneme) ===== */
-  #bgStage{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;will-change:opacity;}
-  #bgStage .bs-flow{position:absolute;inset:0;background:linear-gradient(rgba(8,4,14,.55),rgba(8,4,14,.55)),#0c0812 url('doku-bg.jpg') center/cover no-repeat;}
-  @media(max-width:860px) and (orientation:portrait){#bgStage .bs-flow{background-image:linear-gradient(rgba(8,4,14,.55),rgba(8,4,14,.55)),url('doku-bg-m.jpg');}}
+  #bgStage{position:fixed;inset:0;z-index:1;pointer-events:none;}
+  #bgStage .bs-cur{position:absolute;left:0;right:0;top:0;height:100%;overflow:hidden;will-change:transform;transform:translate3d(0,110vh,0);}
+  #bgStage .bs-cur.edge{height:200px;-webkit-mask-image:linear-gradient(to bottom,transparent,#000);mask-image:linear-gradient(to bottom,transparent,#000);}
+  #bgStage .bs-in{position:absolute;left:0;top:0;width:100%;height:100vh;will-change:transform;}
+  #bgStage .bs-flow{position:absolute;inset:0;background:linear-gradient(rgba(8,4,14,.70),rgba(8,4,14,.70)),#0c0812 url('doku-bg.jpg') center/cover no-repeat;}
+  @media(max-width:860px) and (orientation:portrait){#bgStage .bs-flow{background-image:linear-gradient(rgba(8,4,14,.70),rgba(8,4,14,.70)),url('doku-bg-m.jpg');}}
   #bgStage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;opacity:0;will-change:opacity;filter:contrast(1.05) saturate(1.05);}
   #bgStage .bs-shade{position:absolute;inset:0;background:rgba(12,8,18,.38);opacity:0;}
   .bg-flow{background:transparent!important;}
@@ -626,7 +629,7 @@
   </div>
 </section>
 <div class="hero-spacer"></div>
-<div id="bgStage" aria-hidden="true"><div class="bs-flow"></div><video muted loop playsinline preload="none"><source data-src="video10-lite.mp4" type="video/mp4"></video><div class="bs-shade"></div></div>
+<div id="bgStage" aria-hidden="true"><div class="bs-cur edge"><div class="bs-in"><div class="bs-flow"></div></div></div><div class="bs-cur body"><div class="bs-in"><div class="bs-flow"></div></div></div><video muted loop playsinline preload="none"><source data-src="video10-lite.mp4" type="video/mp4"></video><div class="bs-shade"></div></div>
 
 
 <div class="bg-flow">
@@ -1367,12 +1370,14 @@
 /* TEK SAYFA AKISI: arka plan sabit, kaydirdikca sayfa gecer gibi degisir */
 (function(){
   var st=document.getElementById('bgStage'), flow=document.querySelector('.bg-flow'), ct=document.getElementById('iletisim'); if(!st||!flow||!ct) return;
-  var v=st.querySelector('video'), sh=st.querySelector('.bs-shade'), MAXV=0.32, loaded=false, tick=false;
+  var v=st.querySelector('video'), sh=st.querySelector('.bs-shade'), MAXV=1, F=200, ce=st.querySelector('.bs-cur.edge'), ie=ce.firstChild, cb=st.querySelector('.bs-cur.body'), ib=cb.firstChild, loaded=false, tick=false;
   function clamp(x){ return x<0?0:x>1?1:x; }
   function upd(){ tick=false; var vh=innerHeight;
-    var p1=clamp((vh - flow.getBoundingClientRect().top)/(vh*0.55));
+    var t=flow.getBoundingClientRect().top; t=t<0?0:t>vh?vh:t; var e=t-F;
+    cb.style.transform='translate3d(0,'+t.toFixed(1)+'px,0)'; ib.style.transform='translate3d(0,'+(-t).toFixed(1)+'px,0)';
+    ce.style.transform='translate3d(0,'+e.toFixed(1)+'px,0)'; ie.style.transform='translate3d(0,'+(-e).toFixed(1)+'px,0)';
+    ce.style.visibility=t<=0?'hidden':'visible';
     var p2=clamp((vh*0.95 - ct.getBoundingClientRect().top)/(vh*0.65));
-    st.style.opacity=p1.toFixed(3);
     v.style.opacity=(p2*MAXV).toFixed(3); sh.style.opacity=p2.toFixed(3);
     if(p2>0){ if(!loaded){ var s=v.querySelector('source'); s.src=s.getAttribute('data-src'); v.load(); loaded=true; } if(v.paused) v.play().catch(function(){}); }
     else if(!v.paused) v.pause();
