@@ -84,12 +84,12 @@
   .section{padding:96px 0;position:relative;z-index:2;background:var(--ink);}
   .bg-flow{
     position:relative;z-index:2;
-    background:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), var(--ink) url('doku-bg.jpg') no-repeat center top;
+    background:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), var(--ink) url('doku272-bg.jpg') no-repeat center top;
     background-size:cover, cover;
   }
   .bg-flow > .section{background:transparent;}
   @media(max-width:860px) and (orientation:portrait){
-    .bg-flow{background-image:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), url('doku-bg-m.jpg');}
+    .bg-flow{background-image:linear-gradient(rgba(8,4,14,.62),rgba(8,4,14,.62)), url('doku272-bg-m.jpg');}
   }
   @media(max-width:640px){.section{padding:64px 0;}}
 
@@ -586,12 +586,31 @@
   #bgStage .bs-cur{position:absolute;left:0;right:0;top:0;height:100%;overflow:hidden;will-change:transform;transform:translate3d(0,110vh,0);}
   #bgStage .bs-cur.edge{height:201px;-webkit-mask-image:linear-gradient(to bottom,transparent,#000);mask-image:linear-gradient(to bottom,transparent,#000);}
   #bgStage .bs-in{position:absolute;left:0;top:0;width:100%;height:100vh;will-change:transform;}
-  #bgStage .bs-flow{position:absolute;inset:0;background:linear-gradient(rgba(8,4,14,.70),rgba(8,4,14,.70)),#0c0812 url('doku-bg.jpg') center/cover no-repeat;}
-  @media(max-width:860px) and (orientation:portrait){#bgStage .bs-flow{background-image:linear-gradient(rgba(8,4,14,.70),rgba(8,4,14,.70)),url('doku-bg-m.jpg');}}
+  #bgStage .bs-flow{position:absolute;inset:0;background:linear-gradient(rgba(8,4,14,0.08),rgba(8,4,14,0.08)),#0c0812 url('doku272-bg.jpg') center/cover no-repeat;}
+  @media(max-width:860px) and (orientation:portrait){#bgStage .bs-flow{background-image:linear-gradient(rgba(8,4,14,0.08),rgba(8,4,14,0.08)),url('doku272-bg-m.jpg');}}
   #bgStage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;opacity:0;will-change:opacity;filter:contrast(1.05) saturate(1.05);}
   .top-fade{position:fixed;left:0;right:0;top:0;height:110px;z-index:99;pointer-events:none;background:linear-gradient(rgba(8,4,14,.92),rgba(8,4,14,.55) 55%,transparent);opacity:0;transition:opacity .4s;}
   .top-fade.on{opacity:1;}
   @media(max-width:860px){.top-fade{height:86px;}}
+  /* GIRIS YAZISI: sisten belirme */
+  .hero-sub.fx{animation:none;}
+  .hero-sub .hw{display:inline-block;opacity:0;filter:blur(8px);transform:translateY(.3em);animation:hwIn .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.45s + var(--i) * 45ms);}
+  @keyframes hwIn{to{opacity:1;filter:blur(0);transform:none;}}
+  .hero-sub.done .hw{animation:none;opacity:1;filter:none;transform:none;}
+  @media(max-width:860px){.hero-sub .hw{filter:none;transform:translateY(.4em);animation-duration:.7s;}}
+  @media(prefers-reduced-motion:reduce){.hero-sub .hw{filter:none;transform:none;animation-duration:.6s;}}
+  /* OKUNURLUK: hafif golge + acik etiketler */
+  .bg-flow{--bone-dim:#ece6f4;}
+  .bg-flow p,.bg-flow li,.bg-flow h2,.bg-flow .signature,.bg-flow .bio-highlight,.bg-flow .gallery-note{text-shadow:0 1px 2px rgba(12,6,34,.6),0 0 10px rgba(12,6,34,.5);}
+  .bg-flow .credentials li span:first-child{color:#f6f2fb;font-weight:600;}
+  .bg-flow .credentials li{border-top-color:rgba(255,255,255,.3);}
+  @media(max-width:860px){#sanatci .about-grid > div:not(.about-media)::before,#galeri h2::before,#cover-up h2::before{left:0!important;right:0!important;}}
+  .credentials li{gap:16px;} .credentials li b{text-align:right;}
+  /* OKUNURLUK: yazi arkasina yumusak karartma */
+  #sanatci .about-grid > div:not(.about-media){position:relative;isolation:isolate;}
+  #sanatci .about-grid > div:not(.about-media)::before{content:"";position:absolute;inset:-50px -28px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse closest-side,rgba(16,8,38,.55),rgba(16,8,38,.32) 60%,transparent);}
+  #galeri h2,#cover-up h2{position:relative;isolation:isolate;}
+  #galeri h2::before,#cover-up h2::before{content:"";position:absolute;inset:-26px -28px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse closest-side,rgba(16,8,38,.5),transparent);}
   #bgStage .bs-shade{position:absolute;inset:0;background:rgba(12,8,18,.38);opacity:0;}
   .bg-flow{background:transparent!important;}
   #iletisim{background:transparent!important;}
@@ -1389,6 +1408,25 @@
   }
   addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(upd); } },{passive:true});
   addEventListener('resize',upd); upd();
+})();
+</script>
+<script>
+/* GIRIS YAZISI: kelimeleri sirayla sisten getir (dil degisince yeniden) */
+(function(){
+  var el=document.querySelector('.hero-sub'); if(!el) return; var busy=false;
+  function split(){ busy=true; el.classList.add('fx'); var i=0;
+    (function walk(n){ [].slice.call(n.childNodes).forEach(function(c){
+      if(c.nodeType===3){ var f=document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach(function(w){ if(!w) return; if(/^\s+$/.test(w)){ f.appendChild(document.createTextNode(w)); return; }
+          var s=document.createElement('span'); s.className='hw'; s.style.setProperty('--i',i++); s.textContent=w; f.appendChild(s); });
+        c.parentNode.replaceChild(f,c);
+      } else if(c.nodeType===1 && !c.classList.contains('hw')) walk(c);
+    }); })(el);
+    setTimeout(function(){busy=false;},0);
+    el.classList.remove('done'); clearTimeout(el._hwT); el._hwT=setTimeout(function(){ el.classList.add('done'); }, 450+i*45+1000);
+  }
+  split();
+  new MutationObserver(function(){ if(!busy) split(); }).observe(el,{childList:true});
 })();
 </script>
 </body>
